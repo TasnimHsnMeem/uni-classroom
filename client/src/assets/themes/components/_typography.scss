@@ -1,0 +1,8 @@
+#root{
+  .MuiButton-root,
+  .MuiTypography-root,
+  .MuiInputBase-root,
+  .MuiButtonBase-root-MuiMenuItem-root{
+    @extend %fonFamilyBase;
+  }
+}

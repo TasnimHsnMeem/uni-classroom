@@ -1,0 +1,149 @@
+// global styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $gray-10;
+    font-family: $font-family-base;
+}
+
+.text-center{
+    text-align: center;
+}
+
+//font weight
+.font-weight-semi-bold{
+    font-weight: $font-weight-semi-bold !important;
+}
+
+.font-weight-bold{
+    font-weight: $font-weight-bold !important;
+}
+
+.font-weight-small{
+    font-weight: $font-weight-small !important;
+}
+
+.font-weight-medium{
+    font-weight: $font-weight-medium !important;
+}
+
+.font-weight-normal{
+    font-weight: $font-weight-normal !important;
+}
+
+// font size
+.font-size-18{
+    font-size: 1.125rem !important;
+}
+
+.font-size-16{
+    font-size: 1rem !important;
+}
+
+.font-size-xs{
+    font-size: $font-size-xs !important;
+}
+
+.font-size-14{
+    font-size: $font-size-sm !important;
+}
+
+.float-right {
+    float: right;
+}
+
+// margin
+.mb-1{
+    margin-bottom: .25rem;
+}
+
+.mb-10{
+    margin-bottom: .625rem;
+}
+
+.mb-16{
+    margin-bottom: 1rem;
+}
+
+.mr-12{
+    margin-right: .75rem;
+}
+
+.mr-10{
+    margin-right: .625rem;
+}
+
+.mt-2{
+    margin-top: .5rem;
+}
+
+.ml-10{
+    margin-left: 10px;
+}
+
+// flex
+.d-flex{
+    display: flex !important;
+}
+
+.justify-content-between{
+    justify-content: space-between !important;
+}
+
+.align-items-center{
+    align-items: center !important;
+}
+
+.justify-content-center{
+    justify-content: center !important;
+}
+
+.flex-wrap{
+    flex-wrap: wrap !important;
+}
+
+.heading6{
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.heading3{
+    font-size: 1.25rem;;
+}
+
+.text-truncate{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+//text styles
+.text-danger{
+    color: $red-10 !important;
+}
+
+.text-dark{
+    color: #606164;
+}
+
+.text-secondary{
+    color: $gray-13 !important;
+}
+
+.text-decoration-none{
+    text-decoration: none !important;
+}
+
+.text-white {
+    color: $white !important;
+}
+
+.remove-legend{
+    legend{
+        display: none;
+    }
+}

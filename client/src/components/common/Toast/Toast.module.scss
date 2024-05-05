@@ -1,0 +1,13 @@
+@keyframes progressBar {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+
+.progressBar {
+  animation: progressBar 0.3s ease-out both;
+}

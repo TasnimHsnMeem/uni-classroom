@@ -1,0 +1,13 @@
+.mainContent{
+  padding: 6rem 0 1.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .mainContent{
+    padding: 6rem 0 1.5rem 16.875rem;
+    :global(.MuiContainer-root){
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+}

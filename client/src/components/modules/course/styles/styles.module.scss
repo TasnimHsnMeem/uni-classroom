@@ -1,0 +1,101 @@
+%h5 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #242424;
+  margin: 10px 0;
+}
+
+.h5 {
+  @extend %h5;
+}
+
+.route {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #606164;
+}
+
+.activeRoute {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.rightArrowSpacing {
+  margin: 0 10px;
+}
+
+.boxFlex {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.mTopBottom20 {
+  margin: 20px 0 !important;
+}
+
+.titleButton {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #333333;
+}
+
+.actionSx {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
+.patientTableBtnStyle {
+  padding: 5px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonStyle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: #606164;
+}
+
+.tableHead {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 20px;
+  color: #606164;
+}
+
+.actionSx {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
+
+.iconBtn {
+  min-width: auto;
+  padding: 0;
+}
+
+.colorGray {
+  color: #606164;
+}

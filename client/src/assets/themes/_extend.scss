@@ -1,0 +1,34 @@
+%fonFamilyBase{
+  font-family: $font-family-base;
+}
+
+%headings{
+  @extend %fonFamilyBase;
+  font-weight: $font-weight-medium;
+}
+
+%d-flex{
+  display: flex;
+}
+
+%flex-column{
+  flex-direction: column;
+}
+
+%justify-content-between{
+  justify-content: space-between;
+}
+
+%justify-content-end{
+  justify-content: flex-end;
+}
+
+%align-items-center{
+  align-items: center;
+}
+
+%absoluteTopLeft{
+  position: absolute;
+  top: 0;
+  left: 0;
+}

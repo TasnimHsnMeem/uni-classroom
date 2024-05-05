@@ -1,0 +1,14 @@
+.loadingProgressBar {
+  position: fixed;
+  height: 5px;
+  overflow: hidden;
+  width: 100%;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
+
+.stack {
+  width: 100%;
+  color: #e1614f;
+}

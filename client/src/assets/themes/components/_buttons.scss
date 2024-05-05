@@ -1,0 +1,21 @@
+.btn{
+    font-family: $font-family-base;
+    background-color: transparent;
+    border-color: transparent;
+    font-size: inherit;
+    cursor: pointer;
+}
+.btn-link{
+    padding: 0;
+    border: 0;
+    color: $blue-10;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: white;
+  color: #666666;
+  cursor: no-drop;
+  opacity: 0.5;
+}

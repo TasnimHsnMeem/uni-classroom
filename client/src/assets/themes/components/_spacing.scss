@@ -1,0 +1,94 @@
+$class: mg-t-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    margin-top: $i*1px !important;
+  }
+}
+
+$class: mg-b-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    margin-bottom: $i*1px !important;
+  }
+}
+
+$class: mg-x-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    margin-left: $i*1px !important;
+    margin-right: $i*1px !important;
+  }
+}
+
+$class: mg-y-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    margin-top: $i*1px !important;
+    margin-bottom: $i*1px !important;
+  }
+}
+
+$class: mg-l-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    margin-left: $i*1px !important;
+  }
+}
+
+$class: mg-r-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    margin-right: $i*1px !important;
+  }
+}
+
+$class: mg-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    margin: $i*1px !important;
+  }
+}
+
+$class: pd-l-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    padding-left: $i*1px !important;
+  }
+}
+
+$class: pd-r-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    padding-right: $i*1px !important;
+  }
+}
+
+$class: pd-t-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    padding-top: $i*1px !important;
+  }
+}
+
+$class: pd-b-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    padding-bottom: $i*1px !important;
+  }
+}
+
+$class: pd-x-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    padding-left: $i*1px !important;
+    padding-right: $i*1px !important;
+  }
+}
+
+$class: pd-y-;
+@for $i from 0 through 100 {
+  .#{$class}#{$i} {
+    padding-top: $i*1px !important;
+    padding-bottom: $i*1px !important;
+  }
+}

@@ -1,0 +1,91 @@
+@import "../../../assets/themes/user-variables";
+@import "../../../assets/themes/extend";
+
+.settingsPage{
+  .profileSectionCard{
+    margin-bottom: 1.25rem;
+    :global(.MuiCardContent-root){
+      padding: 1.5rem 1.875rem;
+    }
+  }
+  .headingH2{
+    @extend %headings;
+    font-size: 1.5rem;
+  }
+  .textSecondary{
+    color: rgba($black-11, .7);
+  }
+  .textPrimary{
+    color: $gray-13;
+  }
+  .profileBox{
+    margin-left: auto;
+    position: relative;
+  }
+  .fileUpload{
+    padding: 0;
+    @extend %absoluteTopLeft;
+    @extend %d-flex;
+    @extend %flex-column;
+    @extend %justify-content-end;
+    width: 100%;
+    height: 100%;
+    &:hover{
+      background-color: transparent;
+      .cameraIconWrap{
+        display: block;
+      }
+    }
+  }
+  .dropdown{
+    width: 100%;
+  }
+  .dropdownInput{
+    border: 1px solid rgba($black-11,.12);
+    background-color: $white;
+    &:before{
+      display: none;
+    }
+    &:hover,&:focus{
+      &:before{
+        display: none;
+      }
+    }
+    :global(.MuiSvgIcon-root){
+      color: $red-10;
+    }
+  }
+  :global(.MuiInputBase-input-MuiInput-input){
+    &:focus{
+      background-color: transparent;
+    }
+  }
+}
+.profileHeader{
+  margin-bottom: 1.5rem;
+}
+.mb20{
+  margin-bottom: 1.25rem;
+}
+.cameraIconWrap{
+  height: 1.5rem;
+  width: 100%;
+  background-color: rgba($black, .3);
+  color: $white;
+  display: none;
+}
+.listContent{
+  padding: 1.5rem 1.875rem;
+  border-top: .0625rem solid rgba($black,.12);
+  &:global(.borderTop0){
+    border-top: none;
+  }
+}
+.dots{
+  width: .375rem;
+  height: .375rem;
+  border-radius: 50%;
+  background-color: $gray-13;
+  display: inline-block;
+  margin-right: .25rem;
+}

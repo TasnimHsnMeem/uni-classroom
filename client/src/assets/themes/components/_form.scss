@@ -1,0 +1,75 @@
+.error {
+  color: #da3923;
+  font-size: 0.875rem;
+  padding-top: 0.1rem;
+}
+.error-text {
+  color: #fff;
+  font-size: 0.875rem;
+  padding-top: 0.1rem;
+}
+
+.form-control {
+  width: 100%;
+  background: $gray-11;
+  border: .0625rem solid $gray-11;
+  min-height: 3.375rem;
+  border-radius: .25rem;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  color: $black-11;
+  font-family: $font-family-base;
+
+  &:not([readonly]):focus{
+      border: .0625rem solid $gray-11;
+      outline: none;
+  }
+  @include placeholder(rgba($black-10,.6), 400);
+  &.form-control-light{
+    background-color: $white;
+    &:not([readonly]):focus{
+      background-color: $white;
+    }
+  }
+
+  &.form-control-sm{
+    height: 2.5rem;
+  }
+}
+
+.form-group{
+  margin-bottom: 1.125rem;
+}
+
+.form-label{
+  display: inline-block;
+}
+
+.form-footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  .form-footer-box{
+    border-top: .0625rem solid $gray-16;
+    padding: 1.25rem 0;
+  }
+}
+
+.form-control-new {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  width: 100%;
+  padding: 0.75rem 1.125rem;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  height: 40px;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+@media (min-width: 768px) {
+  .form-footer{
+    left: 16.875rem;
+    width: calc(100% - 16.875rem);
+  }
+}

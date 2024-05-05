@@ -1,0 +1,95 @@
+@import "../../assets/themes/user-variables";
+
+.sideBar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1249;
+  padding-top: 4rem;
+  height: auto;
+  width: 100%;
+  box-shadow: 0 .25rem .5rem rgba($black,.12);
+}
+
+.container {
+  padding: 1.875rem 0;
+  height: 100%;
+  background-color: $white;
+  box-shadow: 1px 0px 0px #F0F0F0;
+}
+
+.sideBarMenu{
+  list-style: none;
+  margin-top: 1.25rem;
+}
+
+.menuLink{
+  position: relative;
+  padding: .875rem 1.25rem .875rem 3.5rem;
+  text-decoration: none;
+  display: block;
+  font-weight: $font-weight-medium;
+  span{
+    color: $black-10;
+  }
+  &:global(.active){
+    background-color: $gray-15;
+    span{
+      color: $red-10;
+    }
+  }
+}
+
+.menuIcon{
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btnNavMenus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 24px;
+  gap: 10px;
+  width: 100%;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #6d6e71;
+  cursor: pointer;
+  &:hover {
+    color: #da3923;
+    background: #eaeaea;
+  }
+}
+
+.navMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #eaeaea;
+  }
+}
+
+@media (min-width: 768px) {
+  .sideBar{
+    height: 100%;
+    width: 16.875rem;
+  }
+}

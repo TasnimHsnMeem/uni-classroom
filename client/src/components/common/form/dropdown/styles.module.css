@@ -1,0 +1,28 @@
+.textFieldStyle {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.dropdown{
+  width: 100%;
+}
+.dropdownInput{
+  border: 1px solid rgba($black-11,.12);
+  background-color: $white;
+  &:before{
+    display: none;
+  }
+  &:hover,&:focus{
+    &:before{
+      display: none;
+    }
+  }
+  :global(.MuiSvgIcon-root){
+    color: $blue-10;
+  }
+}
+:global(.MuiInputBase-input-MuiInput-input){
+  &:focus{
+    background-color: transparent;
+  }
+}
