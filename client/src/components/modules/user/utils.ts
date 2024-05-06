@@ -22,7 +22,7 @@ export const userCreateInitData = {
   phoneNumber: "",
   email: "",
   address: "",
-  classes: [],
+  courses: [],
 };
 
 const userCreationValidationFirstStep = {

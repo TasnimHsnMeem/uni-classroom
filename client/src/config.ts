@@ -48,6 +48,7 @@ const config = {
     },
     course: {
       index: "/course",
+      getById: (id: string) => `/course/${id}`,
     },
     bed: {
       get: "/bed",

@@ -8,17 +8,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import React, { useState } from "react";
 
-
 import courseService from "../../../../services/course";
 
 import { useAppDispatch } from "../../../../redux/store";
 import { setLoadingAction } from "../../../../redux/utils/actions";
-import { IUserTableData, IUserTableHeadCell } from "../../../../types/user/userTable";
+import {
+  IUserTableData,
+  IUserTableHeadCell,
+} from "../../../../types/user/userTable";
 import { logger } from "../../../../utils/logger";
 
 import { toast } from "react-toastify";
 import styles from "./../styles/styles.module.scss";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import RoutingList from "../../../../utils/RoutingList";
 
 const headCells: readonly IUserTableHeadCell[] = [
   // {
@@ -49,9 +53,10 @@ const headCells: readonly IUserTableHeadCell[] = [
 ];
 
 export default function CourseListTable() {
+  const navigate = useNavigate();
   const [pageNo, setPageNo] = useState(0);
   const [pageSize] = useState(10);
-  const [gridData, setGridData] = useState<{data: any[], result: number}>({
+  const [gridData, setGridData] = useState<{ data: any[]; result: number }>({
     data: [],
     result: 0,
   });
@@ -91,13 +96,11 @@ export default function CourseListTable() {
       const paginationData = await getPaginationData(0, pageSize);
       setGridData(paginationData);
       dispatch(setLoadingAction(false));
-
     } catch (error: any) {
       dispatch(setLoadingAction(false));
       toast.error(error.response.data.msg);
-
     }
-  }
+  };
 
   React.useEffect(() => {
     const getData = async () => {
@@ -144,20 +147,26 @@ export default function CourseListTable() {
               {gridData?.data?.length > 0 &&
                 gridData?.data?.map((item, index) => {
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={item.id}
-                    >
+                    <TableRow hover role="checkbox" tabIndex={-1} key={item.id}>
                       <TableCell component="th" scope="row">
-                        <span style={{ color: "#da3923" }}>
+                        <span
+                          style={{ color: "#da3923" }}
+                          onClick={() => {
+                            navigate(
+                              RoutingList?.course?.index + "/" + item.id
+                            );
+                          }}
+                        >
                           {item.name}
                         </span>
                       </TableCell>
-                      <TableCell align="left">{item.student?.length || 0}</TableCell>
+                      <TableCell align="left">
+                        {item.student?.length || 0}
+                      </TableCell>
                       {/* <TableCell align="left">{item.email}</TableCell> */}
-                      <TableCell align="left">{ moment(item.createdAt).fromNow()}</TableCell>
+                      <TableCell align="left">
+                        {moment(item.createdAt).fromNow()}
+                      </TableCell>
                       {/* <TableCell align="left">
                         {new Date().toISOString().substring(0, 10)}
                       </TableCell>

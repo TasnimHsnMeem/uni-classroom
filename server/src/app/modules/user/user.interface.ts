@@ -13,7 +13,7 @@ export type IUser = {
   phoneNumber: string;
   address: string;
   email: string;
-  classes: string[];
+  courses: string[];
 };
 
 export type IsUserExist = Pick<IUser, 'password' | 'role' | 'id' | 'role'>;

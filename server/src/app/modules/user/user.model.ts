@@ -43,7 +43,7 @@ export const userSchema = new Schema<IUser, UserModel>(
       type: String,
       required: true,
     },
-    classes: [
+    courses: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Class',
@@ -66,7 +66,7 @@ export const userSchema = new Schema<IUser, UserModel>(
 userSchema.statics.isUserExist = async function (
   email: string
 ): Promise<IsUserExist | null> {
-  return await User.findOne({ email }, { id: 1, role: 1, password: 1, name: 1, phoneNumber: 1, address: 1, classes: 1, email: 1});
+  return await User.findOne({ email }, { id: 1, role: 1, password: 1, name: 1, phoneNumber: 1, address: 1, courses: 1, email: 1});
 };
 
 userSchema.statics.isPasswordMatched = async function (

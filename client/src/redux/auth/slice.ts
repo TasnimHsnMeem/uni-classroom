@@ -14,7 +14,7 @@ const initState = {
       phoneNumber: "",
       email: "",
       address: "",
-      classes: [],
+      courses: [],
     },
     token: "",
   },

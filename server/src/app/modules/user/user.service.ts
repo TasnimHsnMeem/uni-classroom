@@ -3,6 +3,7 @@ import ApiError from '../../../errors/ApiErrors';
 import { IUser } from './user.interface';
 import User from './user.model';
 import { Types } from 'mongoose';
+import Course from '../course/course.model';
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
   const newUser = await User.create(user);
@@ -74,9 +75,15 @@ const getSingleUser = async (id: string): Promise<IUser | null> => {
 };
 
 const deleteSingleUser = async (id: string): Promise<IUser | null> => {
-  const user = await User.findByIdAndDelete(id);
+  const user = await User.findById(id);
+
+  if (user && user.courses.length > 0) {
+    user.courses.forEach(async classId => {
+      await Course.findOneAndDelete({ _id: classId });
+    });
+  }
   if (user) {
-    return user;
+    return await User.findByIdAndDelete(id);
   } else {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found !');
   }

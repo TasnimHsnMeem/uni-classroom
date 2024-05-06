@@ -21,7 +21,7 @@ const get = async (
 };
 
 const getById = async (id: string) => {
-  const url = `${config.baseUrl}${config.endPoints.user.getById(id)}`;
+  const url = `${config.baseUrl}${config.endPoints.course.getById(id)}`;
   return http.get(url);
 };
 

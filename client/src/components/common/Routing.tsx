@@ -13,6 +13,7 @@ import UserList from "../modules/user/userList/UserList";
 import AddUser from "../modules/user/addUser/AddUser";
 import CourseList from "../modules/course/courseList/CourseList";
 import AddCourse from "../modules/course/addCourse/AddCourse";
+import CourseDetails from "../modules/course/courseDetails/CourseDetails";
 
 const Routing = () => {
   return (
@@ -86,6 +87,15 @@ const Routing = () => {
             }
           >
             <Route path={RoutingList.course.index} element={<CourseList />} />
+          </Route>
+          <Route
+            element={
+              <PrivateRoutes
+                allowedRoles={permissions?.[RoutingList?.course?.index]}
+              />
+            }
+          >
+            <Route path={`${RoutingList.course.index}/:id`} element={<CourseDetails />} />
           </Route>
           <Route
             element={

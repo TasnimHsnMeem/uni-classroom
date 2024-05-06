@@ -9,7 +9,7 @@ export interface IUserTableData {
   phoneNumber: string;
   address: string;
   email: string;
-  classes: string[];
+  courses: string[];
   }
   
   export interface IUserTableHeadCell {
