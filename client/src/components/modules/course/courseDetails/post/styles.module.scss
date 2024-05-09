@@ -1,0 +1,88 @@
+.stepBoxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  overflow: scroll;
+}
+
+.stepBoxContainer::-webkit-scrollbar{
+  display: none;
+}
+
+.stepBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+}
+
+.activeAvatar {
+  background: #da3923 !important;
+  width: 34px;
+  height: 34px;
+}
+
+.route {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #606164;
+}
+
+.activeRoute {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.rightArrowSpacing {
+  margin: 0 10px;
+}
+
+.dividerStyle {
+  margin: 10px 0;
+  color: #da3923;
+}
+
+.stepFormTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.flex{
+  display: flex;
+  gap: 15px;
+}
+
+.flexBetween{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 50px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+
+.flexCenterStart {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

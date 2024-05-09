@@ -19,7 +19,7 @@ import RoutingList from "../../../../utils/RoutingList";
 import {
   courseCreateInitData,
   courseCreationStepsInfo,
-  userCreationValidationSchema,
+  courseCreationValidationSchema,
   courseEditStepsInfo,
 } from "../utils";
 import styles from "./../styles/styles.module.scss";
@@ -126,7 +126,7 @@ const AddCourse = () => {
       <Box className={styles.boxPadding}>
         <Formik
           enableReinitialize={true}
-          validationSchema={userCreationValidationSchema[steps]}
+          validationSchema={courseCreationValidationSchema[steps]}
           initialValues={initData}
           // validateOnChange={false}
           onSubmit={(

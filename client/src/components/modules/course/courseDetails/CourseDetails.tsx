@@ -1,20 +1,72 @@
-import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CourseNotice from "./CourseNotice";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../../../redux/store";
 import { setLoadingAction } from "../../../../redux/utils/actions";
-import { logger } from "../../../../utils/logger";
 import courseService from "../../../../services/course";
-import { useParams } from "react-router-dom";
-import { set } from "../../../../utils/storage";
+import { logger } from "../../../../utils/logger";
+import Assignment from "./assignment/Assignment";
+import Notice from "./notice/Notice";
+import CourseWorkTable from "./post/CourseWorkTable";
+import CourseWork from "./post/CourseWork";
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+
+export enum USER_ROLE {
+  TEACHER = "teacher",
+  STUDENT = "student",
+  ADMIN = "admin",
+}
+
+export interface IUser {
+  id?: string;
+  password: string;
+  role: USER_ROLE.STUDENT | USER_ROLE.TEACHER | USER_ROLE.ADMIN;
+  name: {
+    firstName: string;
+    lastName: string;
+  };
+  phoneNumber: string;
+  address: string;
+  email: string;
+  courses: string[];
+}
+
+
+export interface IPost {
+  title: string;
+  content: string;
+  files: string[];
+};
+
+
+export interface ICourse {
+  notice: string;
+  post: string[];
+  teacher: IUser
+  student: IUser[];
+  name: string;
+  assignments: IAssignment[];
+};
+
+export interface IAssignment {
+  title: string;
+  content: string;
+  submissions: ISubmission[];
+}
+
+export interface ISubmission {
+  title: string;
+  content: string;
+  marks: number;
+  feedback: string;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
@@ -46,7 +98,9 @@ function a11yProps(index: number) {
 
 export default function CourseDetails() {
   const [value, setValue] = React.useState(0);
-  const [courseData, setCourseData] = React.useState({});
+  const [courseData, setCourseData] = React.useState<ICourse>(
+    {} as ICourse
+  );
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
@@ -91,13 +145,13 @@ export default function CourseDetails() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <CourseNotice courseData={courseData}/>
+        <Notice notice={courseData.notice} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <CourseWork posts={courseData.post} teacher={courseData.teacher}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        <Assignment />
       </CustomTabPanel>
     </Box>
   );

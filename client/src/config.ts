@@ -50,6 +50,11 @@ const config = {
       index: "/course",
       getById: (id: string) => `/course/${id}`,
     },
+    post: {
+      index: "/post",
+      getById: (id: string) => `/post/${id}`,
+      upload: `/post/upload`,
+    },
     bed: {
       get: "/bed",
       create: `/bed`,

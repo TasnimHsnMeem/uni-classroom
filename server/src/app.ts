@@ -6,8 +6,22 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import routes from './app/routes';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import cookies from 'cookie-parser';
+import multer from 'multer';
 
 const app: Application = express();
+
+
+// Multer Configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+export const uploadToMulter = multer({ storage });
 
 app.use(cors());
 app.use(cookies());
@@ -16,10 +30,14 @@ app.use(cookies());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/v1', routes);
+app.use(express.static('uploads'));
+
+app.use('/api/v1',uploadToMulter.single('file'), routes);
 
 //global error handler
 app.use(globalErrorHandler);
+
+
 
 //handle not found
 app.use((req: Request, res: Response, next: NextFunction) => {

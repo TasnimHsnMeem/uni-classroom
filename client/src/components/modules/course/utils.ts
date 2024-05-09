@@ -19,10 +19,17 @@ export const courseCreateInitData = {
   assignments: [],
 };
 
-const userCreationValidationFirstStep = {
+const courseCreationValidationFirstStep = {
   name: yup.string().required("Name is required")
 };
 
-export const userCreationValidationSchema = [
-  yup.object().shape({ ...userCreationValidationFirstStep }),
+export const courseCreationValidationSchema = [
+  yup.object().shape({ ...courseCreationValidationFirstStep }),
 ];
+
+
+export const courseWorkValidationSchema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+  content: yup.string().required("Content is required"),
+  files: yup.array().of(yup.string()),
+});

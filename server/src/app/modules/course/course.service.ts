@@ -29,7 +29,7 @@ const updateClass = async (
 };
 
 const getAllClasses = async (): Promise<ICourse[]> => {
-  const allClasses = await Course.find();
+  const allClasses = await Course.find().populate('teacher').populate('post');
   return allClasses;
 };
 
