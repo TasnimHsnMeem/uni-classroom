@@ -7,6 +7,7 @@ import routes from './app/routes';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import cookies from 'cookie-parser';
 import multer from 'multer';
+import { addDummyUser } from './app/modules/user/user.dummy';
 
 const app: Application = express();
 
@@ -54,4 +55,5 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+addDummyUser()
 export default app;
