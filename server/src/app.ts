@@ -15,7 +15,7 @@ const app: Application = express();
 // Multer Configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './uploads/');
+    cb(null, './public/');
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + '-' + file.originalname);
@@ -31,14 +31,12 @@ app.use(cookies());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('uploads'));
+app.use(express.static('public'));
 
-app.use('/api/v1',uploadToMulter.single('file'), routes);
+app.use('/api/v1', uploadToMulter.single('file'), routes);
 
 //global error handler
 app.use(globalErrorHandler);
-
-
 
 //handle not found
 app.use((req: Request, res: Response, next: NextFunction) => {

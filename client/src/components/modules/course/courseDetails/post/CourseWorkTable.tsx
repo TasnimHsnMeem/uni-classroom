@@ -3,6 +3,7 @@ import { IPost } from "../CourseDetails";
 import postService from "../../../../../services/post";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import config from "../../../../../config";
 
 type Props = {
   posts: string[];
@@ -47,7 +48,7 @@ const IndividualCourseWork = ({ courseId }: { courseId: string }) => {
             <Button
               variant="contained"
               color="primary"
-              href={file}
+              href={`${config.assetUrl}${file}`}
               key={file}
               target="_blank"
               rel="noopener noreferrer"

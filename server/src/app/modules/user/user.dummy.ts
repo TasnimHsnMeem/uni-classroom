@@ -8,7 +8,7 @@ export const addDummyUser = async () => {
     return;
   }
   const user = new User();
-  user.password = 'abrakadabra';
+  user.password = '1234';
   user.role = USER_ROLE.ADMIN;
   user.name = {
     firstName: 'Admin',

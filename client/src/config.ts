@@ -1,6 +1,6 @@
 
 const BASE_URL = "http://localhost:5000/api/v1";
-const ASSET_URL = "http://localhost:5000/api/public"
+const ASSET_URL = "http://localhost:5000/"
 const AUTH_URL = "";
 
 const config = {
