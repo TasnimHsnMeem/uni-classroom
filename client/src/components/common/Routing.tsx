@@ -14,6 +14,7 @@ import AddUser from "../modules/user/addUser/AddUser";
 import CourseList from "../modules/course/courseList/CourseList";
 import AddCourse from "../modules/course/addCourse/AddCourse";
 import CourseDetails from "../modules/course/courseDetails/CourseDetails";
+import JoinClass from "../modules/course/joinClass/JoinClass";
 
 const Routing = () => {
   return (
@@ -69,6 +70,15 @@ const Routing = () => {
             }
           >
             <Route path={RoutingList.course.index} element={<CourseList />} />
+          </Route>
+          <Route
+            element={
+              <PrivateRoutes
+                allowedRoles={permissions?.[RoutingList?.course?.join]}
+              />
+            }
+          >
+            <Route path={`${RoutingList.course.join}/:id`} element={<JoinClass />} />
           </Route>
           <Route
             element={

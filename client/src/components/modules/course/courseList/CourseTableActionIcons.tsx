@@ -11,6 +11,7 @@ import { userRoles } from "../../../../constants/user";
 import RoutingList from "../../../../utils/RoutingList";
 
 import styles from "./../styles/styles.module.scss";
+import config from "../../../../config";
 
 type Props = {
     item: any;
@@ -68,7 +69,7 @@ const CourseTableActionIcons = (props: Props) => {
                             sx={{ minWidth: "auto", p: 0 }}
                             type="button"
                             className={styles.btnLink}
-                            onClick={async ()=> await navigator.clipboard.writeText(`http://localhost:5000/api/v1/course/join/${item.id}`)}
+                            onClick={async ()=> await navigator.clipboard.writeText(`http://localhost:3000${RoutingList.course.join}/${item.id}`)}
                         >
                            Copy Invite Link <ContentCopy className={styles.colorGray} />
                         </Button>

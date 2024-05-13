@@ -49,6 +49,7 @@ const config = {
     course: {
       index: "/course",
       getById: (id: string) => `/course/${id}`,
+      join: (id: string) => `/course/join/${id}`,
     },
     post: {
       index: "/post",

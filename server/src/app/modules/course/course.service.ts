@@ -47,10 +47,18 @@ const joinClass = async (
     throw new ApiError(httpStatus.NOT_FOUND, 'Not a student!');
   }
 
+  const isStudentAlreadyJoined = await Course.findOne({
+    _id: id,
+    students: { $in: [new Types.ObjectId(studentId)] },
+  });
+  if (isStudentAlreadyJoined) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Student already joined the class!');
+  }
+
   const result = await Course.findByIdAndUpdate(
     id,
     {
-      $push: { student: new Types.ObjectId(studentId) },
+      $push: { students: new Types.ObjectId(studentId) },
     },
     {
       new: true,

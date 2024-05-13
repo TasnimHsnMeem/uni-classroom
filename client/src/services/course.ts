@@ -46,6 +46,11 @@ const deleteCourse = async (id: string) => {
   return http.delete(url);
 };
 
+const joinClass = async (id: string) => {
+  const url = `${config.baseUrl}${config.endPoints.course.join(id)}`;
+  return http.get(url);
+}
+
 const getLoggedInUserData = async () => {
   const url = `${config.baseUrl}${config.endPoints.user.getMe}`;
   return http.get(url);
@@ -67,6 +72,7 @@ const verify = async (newUserInfo: { token: string; newPass?: string }) => {
 const courseService = {
   get,
   getById,
+  joinClass,
   create,
   delete: deleteCourse,
   update,

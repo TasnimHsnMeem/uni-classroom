@@ -4,6 +4,7 @@ const RoutingList = {
     index: "/course",
     create: "/course/add",
     edit: "/course/edit",
+    join: "/course/join",
   },
   patientAdmission: {
     index: "/patient",
