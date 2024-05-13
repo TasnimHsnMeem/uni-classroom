@@ -3,6 +3,7 @@ import HttpStatus from "http-status-codes";
 import config from "../config";
 import * as tokenService from "../services/token";
 import RoutingList from "../utils/RoutingList";
+import store from "../redux/store";
 
 const AUTHORIZATION_HEADER = "authorization";
 
@@ -27,6 +28,9 @@ export function authorizationInterceptor(request: any) {
 
   if (accessToken && !request.headers[AUTHORIZATION_HEADER]) {
     request.headers[AUTHORIZATION_HEADER] = getAuthorizationHeader(accessToken);
+    const reduxStore = store?.getState();
+    const userId = reduxStore?.auth?.profileData?.user?._id;
+    request.headers["userId"] = userId;
   }
 
   return request;
@@ -43,7 +47,7 @@ export async function unauthorizedResponseHandlerInterceptor(error: any) {
     return Promise.reject(error);
   }
 
-  const  status  = error.response.status;
+  const status = error.response.status;
 
   if (status === HttpStatus.UNAUTHORIZED) {
     tokenService.clear();

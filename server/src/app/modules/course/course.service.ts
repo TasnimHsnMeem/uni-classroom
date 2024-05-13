@@ -1,4 +1,3 @@
-
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiErrors';
 import { ICourse } from './course.interface';
@@ -24,13 +23,16 @@ const updateClass = async (
   const updatedClassData: Partial<ICourse> = { ...classData };
   const result = await Course.findByIdAndUpdate(id, updatedClassData, {
     new: true,
-  }).populate('teacher').populate('posts');
+  })
+    .populate('teacher')
+    .populate('posts');
   return result;
 };
 
-const getAllClasses = async (): Promise<ICourse[]> => {
-  const allClasses = await Course.find().populate('teacher').populate('post');
-  return allClasses;
+const getAllClasses = async (teacherId: string): Promise<ICourse[]> => {
+  const allClasses = await Course.find().populate('post');
+  const filteredClasses = allClasses.filter((course) => teacherId === course.teacher._id.toString());
+  return filteredClasses;
 };
 
 const getSingleClass = async (id: string): Promise<ICourse | null> => {
@@ -50,7 +52,6 @@ const deleteSingleClass = async (id: string): Promise<ICourse | null> => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Class not found !');
   }
 };
-
 
 export const CourseService = {
   createClass,

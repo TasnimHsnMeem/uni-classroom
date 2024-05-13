@@ -12,6 +12,6 @@ export const permissions = {
   [RoutingList?.user?.index]: [userRoles.ADMIN],
   [RoutingList?.user?.create]: [userRoles.ADMIN],
   [RoutingList?.user?.edit]: [userRoles.ADMIN],
-  [RoutingList?.course?.index]: [userRoles.TEACHER],
+  [RoutingList?.course?.index]: [userRoles.TEACHER, userRoles.STUDENT],
   [RoutingList?.course?.create]: [userRoles.TEACHER],
 };

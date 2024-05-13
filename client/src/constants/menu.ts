@@ -99,6 +99,7 @@ const MENU = {
       // allMenus?.setting?.nav
     ],
     [userRoles.STUDENT]: [
+      allMenus.course.nav
       // allMenus?.setting?.nav
     ],
     [userRoles.ADMIN]: [allMenus?.user?.nav, 

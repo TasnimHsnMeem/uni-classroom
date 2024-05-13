@@ -36,7 +36,8 @@ const updateCourse: RequestHandler = catchAsync(
 
 const getAllCourses: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await CourseService.getAllClasses();
+    const userId =  req.headers.userid as string;
+    const result = await CourseService.getAllClasses(userId);
     sendResponse<ICourse[]>(res, {
       statusCode: httpStatus.OK,
       success: true,
