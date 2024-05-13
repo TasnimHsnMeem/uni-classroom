@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Delete, Edit } from "@mui/icons-material";
+import { AccessibleForward, ContentCopy, Delete, Edit } from "@mui/icons-material";
 import { shallowEqual, useSelector } from "react-redux";
 
 import ConfirmationModal from "../../../common/modal/confirmationModal/ConfirmationModal";
@@ -49,7 +49,7 @@ const CourseTableActionIcons = (props: Props) => {
         <>
             <Box className={styles.actionSx}>
 
-                {[userRoles.ADMIN].includes(role) && (
+                {/* {[userRoles.ADMIN].includes(role) && (
                     <Box className={styles.actionSx}>
                         <Button
                             sx={{ minWidth: "auto", p: 0 }}
@@ -60,17 +60,17 @@ const CourseTableActionIcons = (props: Props) => {
                             <Edit sx={{ color: "#606164" }} />
                         </Button>
                     </Box>
-                )}
+                )} */}
 
-                {[userRoles.ADMIN].includes(role) && (
+                {[userRoles.TEACHER].includes(role) && (
                     <Box className={styles.actionSx}>
                         <Button
                             sx={{ minWidth: "auto", p: 0 }}
                             type="button"
                             className={styles.btnLink}
-                            onClick={openConfirmationModal}
+                            onClick={async ()=> await navigator.clipboard.writeText(`http://localhost:5000/api/v1/course/join/${item.id}`)}
                         >
-                            <Delete className={styles.colorGray} />
+                           Copy Invite Link <ContentCopy className={styles.colorGray} />
                         </Button>
                     </Box>
                 )}

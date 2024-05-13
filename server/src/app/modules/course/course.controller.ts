@@ -60,6 +60,20 @@ const getSingleCourse: RequestHandler = catchAsync(
   }
 );
 
+const joinCourse: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const userId = req.headers.userid as string;
+    const result = await CourseService.joinClass(id, userId);
+    sendResponse<ICourse>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Success',
+      data: result,
+    });
+  }
+);
+
 const deleteSingleCourse: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
@@ -75,6 +89,7 @@ const deleteSingleCourse: RequestHandler = catchAsync(
 
 export const CourseController = {
   createCourse,
+  joinCourse,
   updateCourse,
   getAllCourses,
   getSingleCourse,

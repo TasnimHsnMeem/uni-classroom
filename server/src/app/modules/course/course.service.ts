@@ -2,6 +2,9 @@ import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiErrors';
 import { ICourse } from './course.interface';
 import Course from './course.model';
+import { Types } from 'mongoose';
+import User from '../user/user.model';
+import { USER_ROLE } from '../../../enums';
 
 const createClass = async (user: ICourse): Promise<ICourse | null> => {
   const newClass = (await Course.create(user)).populate('teacher');
@@ -29,9 +32,39 @@ const updateClass = async (
   return result;
 };
 
+const joinClass = async (
+  id: string,
+  studentId: string
+): Promise<ICourse | null> => {
+  const isExist = await Course.findById(id);
+  const isStudentExist = await User.findById(studentId);
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Class not found !');
+  }
+
+  if ( !isStudentExist || isStudentExist.role !== USER_ROLE.STUDENT) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Not a student!');
+  }
+
+  const result = await Course.findByIdAndUpdate(
+    id,
+    {
+      $push: { student: new Types.ObjectId(studentId) },
+    },
+    {
+      new: true,
+      runValidators: true, // Option to run validators on update
+    }
+  );
+  return result;
+};
+
 const getAllClasses = async (teacherId: string): Promise<ICourse[]> => {
   const allClasses = await Course.find().populate('post');
-  const filteredClasses = allClasses.filter((course) => teacherId === course.teacher._id.toString());
+  const filteredClasses = allClasses.filter(
+    course => teacherId === course.teacher._id.toString()
+  );
   return filteredClasses;
 };
 
@@ -55,6 +88,7 @@ const deleteSingleClass = async (id: string): Promise<ICourse | null> => {
 
 export const CourseService = {
   createClass,
+  joinClass,
   updateClass,
   getAllClasses,
   getSingleClass,

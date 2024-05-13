@@ -23,6 +23,7 @@ import styles from "./../styles/styles.module.scss";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import RoutingList from "../../../../utils/RoutingList";
+import CourseTableActionIcons from "./CourseTableActionIcons";
 
 const headCells: readonly IUserTableHeadCell[] = [
   // {
@@ -45,11 +46,11 @@ const headCells: readonly IUserTableHeadCell[] = [
     numeric: true,
     label: "Created At",
   },
-  // {
-  //   id: "action",
-  //   numeric: true,
-  //   label: "Action",
-  // },
+  {
+    id: "action",
+    numeric: true,
+    label: "Action",
+  },
 ];
 
 export default function CourseListTable() {
@@ -172,9 +173,9 @@ export default function CourseListTable() {
                       </TableCell>
                       <TableCell align="left">{item?.role.replaceAll("_"," ")}</TableCell> */}
 
-                      {/* <TableCell align="right">
-                        <UserTableActionIcons item={item} handleDelete={handleDelete} />
-                      </TableCell> */}
+                      <TableCell align="right">
+                        <CourseTableActionIcons item={item} handleDelete={handleDelete} />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
