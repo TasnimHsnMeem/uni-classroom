@@ -37,42 +37,42 @@ const joinClass = async (
   studentId: string
 ): Promise<ICourse | null> => {
   const isExist = await Course.findById(id);
-  const isStudentExist = await User.findById(studentId);
-
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Class not found !');
   }
 
-  if ( !isStudentExist || isStudentExist.role !== USER_ROLE.STUDENT) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Not a student!');
+  const user = await User.findById(studentId);
+  if (!user || user.role !== USER_ROLE.STUDENT) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found !');
   }
 
-  const isStudentAlreadyJoined = await Course.findOne({
-    _id: id,
-    students: { $in: [new Types.ObjectId(studentId)] },
-  });
-  if (isStudentAlreadyJoined) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Student already joined the class!');
-  }
+  const updatedClassData: any = {
+    $addToSet: { student: studentId },
+  };
 
-  const result = await Course.findByIdAndUpdate(
-    id,
-    {
-      $push: { students: new Types.ObjectId(studentId) },
-    },
-    {
-      new: true,
-      runValidators: true, // Option to run validators on update
-    }
-  );
+  const result = await Course.findByIdAndUpdate(id, updatedClassData, {
+    new: true,
+  })
   return result;
 };
 
-const getAllClasses = async (teacherId: string): Promise<ICourse[]> => {
-  const allClasses = await Course.find().populate('post');
-  const filteredClasses = allClasses.filter(
-    course => teacherId === course.teacher._id.toString()
-  );
+const getAllClasses = async (userId: string): Promise<ICourse[]> => {
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found !');
+  }
+  let filteredClasses: any = [];
+  if (user.role === USER_ROLE.TEACHER) {
+    const allClasses = await Course.find().populate('post');
+    filteredClasses = allClasses.filter(
+      course => userId === course.teacher._id.toString()
+    );
+  } else if (user.role === USER_ROLE.STUDENT) {
+    filteredClasses = await Course.find({
+      student: { $in: [new Types.ObjectId(userId)] },
+    }).populate('teacher');
+  }
+
   return filteredClasses;
 };
 
