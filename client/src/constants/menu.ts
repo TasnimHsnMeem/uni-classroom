@@ -45,19 +45,29 @@ const allMenus = {
       route: RoutingList.settings.index,
     },
   },
+  chat: {
+    nav: {
+      icon: Groups2,
+      label: "Chat",
+      route: RoutingList.chat.index,
+    },
+  }
 };
 
 const MENU = {
   nav: {
     [userRoles.TEACHER]: [
-      allMenus.course.nav
+      allMenus.course.nav,
+      allMenus.chat.nav,
       // allMenus?.setting?.nav
     ],
     [userRoles.STUDENT]: [
-      allMenus.course.nav
+      allMenus.course.nav,
+      allMenus.chat.nav,
       // allMenus?.setting?.nav
     ],
     [userRoles.ADMIN]: [allMenus?.user?.nav, 
+      allMenus.chat.nav,
       // allMenus?.setting?.nav
     ],
   },

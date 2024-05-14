@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-
 import Img1 from "./chatbot.png";
 import Img2 from "./chatbot1.png";
 import "./chatbot.css";
+import Layout from "../../common/layouts/Layout";
 
 type Props = {};
 
@@ -20,175 +20,225 @@ interface Data {
 const data: Data = {
   chatinit: {
     title: [
-      "Hello",
-      "I am Mr. Chatbot",
-      "How can I help you?",
+      "Hello 👋",
+      "Welcome to Metropolitan University, Sylhet Chatbot",
+      "How can I assist you today?",
     ],
+    options: ["Admissions", "Courses", "Departments", "Events", "Contact"],
+  },
+  admissions: {
+    title: ["Please select a category"],
+    options: ["Undergraduate", "Postgraduate", "PhD", "International Students"],
+  },
+  courses: {
+    title: ["Please select a department to see available courses"],
     options: [
-      "Movies",
-      "News",
-      "Shopping",
-      "Music",
+      "Computer Science",
+      "Business Administration",
+      "Engineering",
+      "Law",
+      "Pharmacy",
     ],
   },
-  movies: {
-    title: ["Please select category"],
-    options: ["Hollywood", "Bollywood", "Web Series", "Others"],
-    url: {},
-  },
-
-  news: {
-    title: ["Today's Top 5 Headlines"],
+  departments: {
+    title: ["Here are the departments in our university"],
     options: [
-      "The rare green comet will make its closest pass of Earth between February 1 and February 2, according to NASA.",
-      "The rare green comet will make its closest pass of Earth between February 1 and February 2, according to NASA.",
-      "The rare green comet will make its closest pass of Earth between February 1 and February 2, according to NASA.",
+      "Computer Science",
+      "Business Administration",
+      "Engineering",
+      "Law",
+      "Pharmacy",
+    ],
+  },
+  events: {
+    title: ["Upcoming University Events"],
+    options: [
+      "Orientation Program - January 15",
+      "Cultural Fest - February 20",
+      "Convocation - December 10",
     ],
     url: {
-      more: "https://www.youtube.com/@webhub/videos",
+      more: "https://metrouni.edu.bd/events",
       link: [
-        "https://www.youtube.com/@webhub/videos",
-        "https://www.youtube.com/@webhub/videos",
-        "https://www.youtube.com/@webhub/videos",
-        "https://www.youtube.com/@webhub/videos",
+        "https://metrouni.edu.bd/orientation",
+        "https://metrouni.edu.bd/cultural-fest",
+        "https://metrouni.edu.bd/convocation",
       ],
     },
   },
-  shopping: {
-    title: [
-      "Thanks for your response",
-      "Welcome to shopping zone",
-      "Please select one of the below options to proceed further",
-    ],
+  contact: {
+    title: ["Contact Information"],
     options: [
-      "Electronics",
-      "Beauty products",
-      "Mobiles",
-      "Men Fashion",
-      "Women fashion",
+      "Phone: +880123456789",
+      "Email: info@metrouni.edu.bd",
+      "Visit Us",
     ],
-    url: {},
+    url: {
+      more: "https://metrouni.edu.bd/contact",
+    },
   },
-  electronics: {
-    title: [
-      "Thanks for your response",
-      "Here are some electronic items for you",
-      "Click on it to know more",
-    ],
+  undergraduate: {
+    title: ["Undergraduate Admissions Information"],
     options: [
-      "Televisions",
-      "Cameras",
-      "Gaming Consoles",
-      "Headphones",
-      "Speakers",
+      "Apply Now",
+      "Admission Requirements",
+      "Tuition Fees",
+      "Scholarships",
     ],
     url: {
-      more: "https://www.youtube.com/@webhub/videos",
-      link: ["#", "#", "#", "#", "#"],
-    },
-  },
-  beauty: {
-    title: [
-      "Thanks for your response",
-      "Here are some beauty products for you",
-      "Click on it to know more",
-    ],
-    options: ["Make-up & Nails", "Skin Care", "Fragrance", "Hair care"],
-    url: {
-      more: "https://www.youtube.com/@webhub/videos",
-      link: ["#", "#", "#", "#"],
-    },
-  },
-  mobiles: {
-    title: [
-      "Thanks for your response",
-      "These are some results based on your input",
-      "Click on it to know more",
-    ],
-    options: ["Mobile Phones", "Cases & Covers", "Power Banks", "Tablets"],
-    url: {
-      more: "https://www.youtube.com/@webhub/videos",
-      link: ["#", "#", "#", "#"],
-    },
-  },
-  men: {
-    title: [
-      "Thanks for your response",
-      "These are some results based on your input",
-      "Click on it to know more",
-    ],
-    options: ["Clothing", "Shirts", "T-shirts", "Innerwear", "Jeans"],
-    url: {
-      more: "https://www.youtube.com/@webhub/videos",
-      link: ["#", "#", "#", "#", "#"],
-    },
-  },
-  women: {
-    title: [
-      "Thanks for your response",
-      "These are some results based on your input",
-      "Click on it to know more",
-    ],
-    options: ["Clothing", "Western Wear", "Ethnic Wear", "Top Brands"],
-    url: {
-      more: "https://www.youtube.com/@webhub/videos",
-      link: ["#", "#", "#", "#"],
-    },
-  },
-  music: {
-    title: [
-      "These are some latest songs",
-    ],
-    options: ["song 1", "song 2", "song 3", "song 4", "song 5"],
-    url: {
-      more: "https://www.youtube.com/@webhub/videos",
+      more: "https://metrouni.edu.bd/undergraduate",
       link: [
-        "https://www.youtube.com/@webhub/videos",
-        "https://www.youtube.com/@webhub/videos",
-        "https://www.youtube.com/@webhub/videos",
-        "https://www.youtube.com/@webhub/videos",
+        "https://metrouni.edu.bd/apply-now",
+        "https://metrouni.edu.bd/requirements",
+        "https://metrouni.edu.bd/tuition",
+        "https://metrouni.edu.bd/scholarships",
       ],
     },
   },
-  hollywood: {
-    title: ["Thanks for your response", "Here are some genre based movies"],
-    options: ["Comedy", "Horror", "Sci-Fi", "Romance", "Action"],
+  postgraduate: {
+    title: ["Postgraduate Admissions Information"],
+    options: [
+      "Apply Now",
+      "Admission Requirements",
+      "Tuition Fees",
+      "Scholarships",
+    ],
     url: {
-      more: "https://www.youtube.com/@webhub/videos",
-      link: ["#", "#", "#", "#", "#"],
+      more: "https://metrouni.edu.bd/postgraduate",
+      link: [
+        "https://metrouni.edu.bd/apply-now",
+        "https://metrouni.edu.bd/requirements",
+        "https://metrouni.edu.bd/tuition",
+        "https://metrouni.edu.bd/scholarships",
+      ],
     },
   },
-  bollywood: {
-    title: ["Thanks for your response", "Here are some genre based movies"],
-    options: ["Comedy", "Horror", "Sci-Fi", "Romance", "Action"],
+  phd: {
+    title: ["PhD Admissions Information"],
+    options: [
+      "Apply Now",
+      "Admission Requirements",
+      "Research Opportunities",
+      "Funding",
+    ],
     url: {
-      more: "https://www.youtube.com/@webhub/videos",
-      link: ["#", "#", "#", "#", "#"],
+      more: "https://metrouni.edu.bd/phd",
+      link: [
+        "https://metrouni.edu.bd/apply-now",
+        "https://metrouni.edu.bd/requirements",
+        "https://metrouni.edu.bd/research",
+        "https://metrouni.edu.bd/funding",
+      ],
     },
   },
-  web: {
-    title: ["Thanks for your response", "Here are some genre based web series"],
-    options: ["Comedy", "Horror", "Sci-Fi", "Romance", "Action"],
+  international: {
+    title: ["International Students Information"],
+    options: [
+      "Apply Now",
+      "Admission Requirements",
+      "Visa Information",
+      "Scholarships",
+    ],
     url: {
-      more: "https://www.youtube.com/@webhub/videos",
-      link: ["#", "#", "#", "#", "#"],
+      more: "https://metrouni.edu.bd/international",
+      link: [
+        "https://metrouni.edu.bd/apply-now",
+        "https://metrouni.edu.bd/requirements",
+        "https://metrouni.edu.bd/visa",
+        "https://metrouni.edu.bd/scholarships",
+      ],
     },
   },
-  others: {
-    title: ["Here are some more options for you"],
-    options: ["YouTube", "Netflix", "Amazon Prime", "Hot Star"],
+  computer: {
+    title: ["Computer Science Courses"],
+    options: [
+      "Introduction to Programming",
+      "Data Structures",
+      "Algorithms",
+      "Operating Systems",
+    ],
     url: {
-      more: "https://www.youtube.com/",
-      link: ["#", "#", "#", "#", "#"],
+      more: "https://metrouni.edu.bd/computer-science",
+      link: [
+        "https://metrouni.edu.bd/programming",
+        "https://metrouni.edu.bd/data-structures",
+        "https://metrouni.edu.bd/algorithms",
+        "https://metrouni.edu.bd/os",
+      ],
+    },
+  },
+  business: {
+    title: ["Business Administration Courses"],
+    options: ["Introduction to Business", "Marketing", "Finance", "Management"],
+    url: {
+      more: "https://metrouni.edu.bd/business",
+      link: [
+        "https://metrouni.edu.bd/business-intro",
+        "https://metrouni.edu.bd/marketing",
+        "https://metrouni.edu.bd/finance",
+        "https://metrouni.edu.bd/management",
+      ],
+    },
+  },
+  engineering: {
+    title: ["Engineering Courses"],
+    options: [
+      "Introduction to Engineering",
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical Engineering",
+    ],
+    url: {
+      more: "https://metrouni.edu.bd/engineering",
+      link: [
+        "https://metrouni.edu.bd/intro-engineering",
+        "https://metrouni.edu.bd/civil",
+        "https://metrouni.edu.bd/mechanical",
+        "https://metrouni.edu.bd/electrical",
+      ],
+    },
+  },
+  law: {
+    title: ["Law Courses"],
+    options: [
+      "Introduction to Law",
+      "Criminal Law",
+      "Constitutional Law",
+      "International Law",
+    ],
+    url: {
+      more: "https://metrouni.edu.bd/law",
+      link: [
+        "https://metrouni.edu.bd/intro-law",
+        "https://metrouni.edu.bd/criminal-law",
+        "https://metrouni.edu.bd/constitutional-law",
+        "https://metrouni.edu.bd/international-law",
+      ],
+    },
+  },
+  pharmacy: {
+    title: ["Pharmacy Courses"],
+    options: [
+      "Introduction to Pharmacy",
+      "Pharmaceutical Chemistry",
+      "Pharmacology",
+      "Clinical Pharmacy",
+    ],
+    url: {
+      more: "https://metrouni.edu.bd/pharmacy",
+      link: [
+        "https://metrouni.edu.bd/intro-pharmacy",
+        "https://metrouni.edu.bd/pharmaceutical-chemistry",
+        "https://metrouni.edu.bd/pharmacology",
+        "https://metrouni.edu.bd/clinical-pharmacy",
+      ],
     },
   },
 };
-
 interface ChatContent {
   type: string;
   content: string | JSX.Element;
 }
-
 
 const Chatbot: React.FC<Props> = () => {
   const [chatVisible, setChatVisible] = useState<boolean>(false);
@@ -217,7 +267,12 @@ const Chatbot: React.FC<Props> = () => {
   const handleChat = (message: string) => {
     setChatContent((prev) => [
       ...prev,
-      { type: "msg", content: <p dangerouslySetInnerHTML={{ __html: message }} /> },
+      {
+        type: "msg",
+        content: (
+          <p className="msg" dangerouslySetInnerHTML={{ __html: message }} />
+        ),
+      },
     ]);
     handleScroll();
   };
@@ -231,29 +286,37 @@ const Chatbot: React.FC<Props> = () => {
     const textArr = option.split(" ");
     const findText = textArr[0].toLowerCase();
     const tempObj = data[findText];
-  
+
     setChatContent((prev) => [
       ...prev,
       {
         type: "test",
-        content: <p className="test"><span className="rep">{option}</span></p>,
+        content: (
+          <p className="test">
+            <span className="rep">{option}</span>
+          </p>
+        ),
       },
     ]);
-  
+
     setOptions([]);
-  
+
     if (tempObj) {
       handleResults(tempObj.title, tempObj.options, tempObj.url || {});
     } else {
       console.error(`No data found for the option: ${findText}`);
     }
   };
-  
 
   const handleDelay = (title: string) => {
     setChatContent((prev) => [
       ...prev,
-      { type: "msg", content: <p dangerouslySetInnerHTML={{ __html: title }} /> },
+      {
+        type: "msg",
+        content: (
+          <p className="msg" dangerouslySetInnerHTML={{ __html: title }} />
+        ),
+      },
     ]);
   };
 
@@ -281,9 +344,7 @@ const Chatbot: React.FC<Props> = () => {
   ) => {
     const opts = options.map((option, index) => (
       <span key={index} className="opt">
-        <a className="m-link" href={url.link ? url.link[index] : "#"}>
-          {option}
-        </a>
+        <span>{option}</span>
       </span>
     ));
 
@@ -312,71 +373,70 @@ const Chatbot: React.FC<Props> = () => {
   };
 
   return (
-    <div>
-      <div className="parent">
-        <div className="desc">
-          <h1 className="text">JavaScript Chatbot</h1>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus
-            quasi obcaecati, voluptatum perspiciatis illum sunt? Lorem ipsum
-            dolor sit amet.
-          </p>
-          <button id="init" onClick={showChatBot}>
-            {chatVisible ? "CLOSE CHAT" : "START CHAT"}
-          </button>
-        </div>
-        <div>
-          <img src={Img1} alt="" className="bot-img" />
-        </div>
-      </div>
-      {chatVisible && (
-        <div
-          id="test"
-          style={{
-            position: "fixed",
-            top: "4rem",
-            right: "8rem",
-            display: "block",
-          }}
-        >
-          <div className="child" id="chatbot">
-            <div className="header">
-              <div className="h-child">
-                <img src={Img2} alt="avatar" id="avatar" />
-                <div>
-                  <span className="name">Chatbot</span>
-                  <br />
-                  <span style={{ color: "lawngreen" }}>online</span>
-                </div>
-              </div>
-              <div>
-                <button className="refBtn">
-                  <i
-                    className="fa fa-refresh"
-                    onClick={() => console.log("OpenChatbox")}
-                  ></i>
-                </button>
-              </div>
-            </div>
-            <div id="chat-box">
-              {chatContent.map((item, index) => (
-                <React.Fragment key={index}>
-                  {item.content}
-                </React.Fragment>
-              ))}
-              {options.map((option, index) => (
-                <span
-                  key={index}
-                  className="opt"
-                  onClick={() => handleOpt(option)}
-                  dangerouslySetInnerHTML={{ __html: option }}
-                ></span>
-              ))}
-            </div>
+    <Layout>
+      <div>
+        <div className="parent">
+          <div className="desc">
+            <h1 className="text">Metropolitan University Chatbot</h1>
+            <p>
+              Welcome to Metropolitan University, Sylhet. How can we assist you
+              today?
+            </p>
+            <button id="init" onClick={showChatBot}>
+              {chatVisible ? "CLOSE CHAT" : "START CHAT"}
+            </button>
+          </div>
+          <div>
+            <img src={Img1} alt="" className="bot-img" />
           </div>
         </div>
-      )}
-    </div>
+        {chatVisible && (
+          <div
+            id="test"
+            style={{
+              position: "fixed",
+              top: "4rem",
+              right: "8rem",
+              display: "block",
+            }}
+          >
+            <div className="child" id="chatbot">
+              <div className="header">
+                <div className="h-child">
+                  <img src={Img2} alt="avatar" id="avatar" />
+                  <div>
+                    <span className="name">Chatbot</span>
+                    <br />
+                    <span style={{ color: "lawngreen" }}>online</span>
+                  </div>
+                </div>
+                <div>
+                  <button className="refBtn">
+                    <i
+                      className="fa fa-refresh"
+                      onClick={() => console.log("OpenChatbox")}
+                    ></i>
+                  </button>
+                </div>
+              </div>
+              <div id="chat-box">
+                {chatContent.map((item, index) => (
+                  <React.Fragment key={index}>{item.content}</React.Fragment>
+                ))}
+                {options.map((option, index) => (
+                  <span
+                    key={index}
+                    className="opt"
+                    onClick={() => handleOpt(option)}
+                    dangerouslySetInnerHTML={{ __html: option }}
+                  ></span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </Layout>
   );
 };
 
