@@ -20,6 +20,11 @@ const submissionSchema = new Schema<ISubmission>(
       type: String,
       required: true,
     },
+    student: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    }
   },
   {
     timestamps: true,

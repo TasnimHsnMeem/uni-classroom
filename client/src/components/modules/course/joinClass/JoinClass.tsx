@@ -19,11 +19,11 @@ const JoinClass = (props: Props) => {
         const res = await courseService.joinClass(id as string);
         dispatch(setLoadingAction(false));
         toast.success("Joined class successfully");
-        // navigate('/course');
+        navigate('/course');
       } catch {
         dispatch(setLoadingAction(false));
         toast.error("Failed to join class");
-        // navigate('/course');
+        navigate('/course');
       }
     };
     getData()

@@ -6,6 +6,7 @@ export type ISubmission = {
   content: string;
   marks: number;
   feedback: string;
+  student: Types.ObjectId;
 };
 
 export type SubmissionModel = Model<ISubmission, Record<string, unknown>>;

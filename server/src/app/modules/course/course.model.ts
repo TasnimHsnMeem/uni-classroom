@@ -8,6 +8,7 @@ const courseSchema = new Schema<ICourse>(
     post: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
     teacher: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     student: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    assignments: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     name: { type: String, required: true },
   },
   {
