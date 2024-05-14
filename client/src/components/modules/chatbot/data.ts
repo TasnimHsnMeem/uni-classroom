@@ -1,7 +1,8 @@
 interface Data {
   [key: string]: {
     title: string[];
-    options: string[];
+    content?: string;
+    options?: { text: string; url?: string }[];
     url?: {
       more?: string;
       link?: string[];
@@ -16,214 +17,168 @@ export const chat_data: Data = {
       "Welcome to Metropolitan University, Sylhet Chatbot",
       "How can I assist you today?",
     ],
-    options: ["Admissions", "Courses", "Departments", "Events", "Contact"],
+    options: [
+      { text: "Admissions" },
+      { text: "Courses" },
+      { text: "Departments" },
+      { text: "Events" },
+      { text: "Contact" },
+    ],
   },
   admissions: {
     title: ["Please select a category"],
-    options: ["Undergraduate", "Postgraduate", "PhD", "International Students"],
+    options: [
+      { text: "Undergraduate" },
+      { text: "Postgraduate" },
+      { text: "PhD" },
+      { text: "International Students" },
+    ],
   },
   courses: {
     title: ["Please select a department to see available courses"],
     options: [
-      "Computer Science",
-      "Business Administration",
-      "Engineering",
-      "Law",
-      "Pharmacy",
+      { text: "Computer Science" },
+      { text: "Business Administration" },
+      { text: "Engineering" },
+      { text: "Law" },
+      { text: "Pharmacy" },
     ],
   },
   departments: {
     title: ["Here are the departments in our university"],
     options: [
-      "Computer Science",
-      "Business Administration",
-      "Engineering",
-      "Law",
-      "Pharmacy",
+      { text: "Computer Science" },
+      { text: "Business Administration" },
+      { text: "Engineering" },
+      { text: "Law" },
+      { text: "Pharmacy" },
     ],
   },
   events: {
     title: ["Upcoming University Events"],
     options: [
-      "Orientation Program - January 15",
-      "Cultural Fest - February 20",
-      "Convocation - December 10",
+      { text: "Orientation Program - January 15", url: "https://metrouni.edu.bd/orientation" },
+      { text: "Cultural Fest - February 20", url: "https://metrouni.edu.bd/cultural-fest" },
+      { text: "Convocation - December 10", url: "https://metrouni.edu.bd/convocation" },
     ],
     url: {
       more: "https://metrouni.edu.bd/events",
-      link: [
-        "https://metrouni.edu.bd/orientation",
-        "https://metrouni.edu.bd/cultural-fest",
-        "https://metrouni.edu.bd/convocation",
-      ],
     },
   },
   contact: {
     title: ["Contact Information"],
     options: [
-      "Phone: +880123456789",
-      "Email: info@metrouni.edu.bd",
-      "Visit Us",
+      { text: "Phone: +880123456789" },
+      { text: "Email: info@metrouni.edu.bd" },
+      { text: "Visit Us", url: "https://metrouni.edu.bd/contact" },
     ],
-    url: {
-      more: "https://metrouni.edu.bd/contact",
-    },
   },
   undergraduate: {
     title: ["Undergraduate Admissions Information"],
     options: [
-      "Apply Now",
-      "Admission Requirements",
-      "Tuition Fees",
-      "Scholarships",
+      { text: "Apply Now", url: "https://metrouni.edu.bd/apply-now" },
+      { text: "Admission Requirements", url: "https://metrouni.edu.bd/requirements" },
+      { text: "Tuition Fees", url: "https://metrouni.edu.bd/tuition" },
+      { text: "Scholarships", url: "https://metrouni.edu.bd/scholarships" },
     ],
     url: {
       more: "https://metrouni.edu.bd/undergraduate",
-      link: [
-        "https://metrouni.edu.bd/apply-now",
-        "https://metrouni.edu.bd/requirements",
-        "https://metrouni.edu.bd/tuition",
-        "https://metrouni.edu.bd/scholarships",
-      ],
     },
   },
   postgraduate: {
     title: ["Postgraduate Admissions Information"],
     options: [
-      "Apply Now",
-      "Admission Requirements",
-      "Tuition Fees",
-      "Scholarships",
+      { text: "Apply Now", url: "https://metrouni.edu.bd/apply-now" },
+      { text: "Admission Requirements", url: "https://metrouni.edu.bd/requirements" },
+      { text: "Tuition Fees", url: "https://metrouni.edu.bd/tuition" },
+      { text: "Scholarships", url: "https://metrouni.edu.bd/scholarships" },
     ],
     url: {
       more: "https://metrouni.edu.bd/postgraduate",
-      link: [
-        "https://metrouni.edu.bd/apply-now",
-        "https://metrouni.edu.bd/requirements",
-        "https://metrouni.edu.bd/tuition",
-        "https://metrouni.edu.bd/scholarships",
-      ],
     },
   },
   phd: {
     title: ["PhD Admissions Information"],
     options: [
-      "Apply Now",
-      "Admission Requirements",
-      "Research Opportunities",
-      "Funding",
+      { text: "Apply Now", url: "https://metrouni.edu.bd/apply-now" },
+      { text: "Admission Requirements", url: "https://metrouni.edu.bd/requirements" },
+      { text: "Research Opportunities", url: "https://metrouni.edu.bd/research" },
+      { text: "Funding", url: "https://metrouni.edu.bd/funding" },
     ],
     url: {
       more: "https://metrouni.edu.bd/phd",
-      link: [
-        "https://metrouni.edu.bd/apply-now",
-        "https://metrouni.edu.bd/requirements",
-        "https://metrouni.edu.bd/research",
-        "https://metrouni.edu.bd/funding",
-      ],
     },
   },
   international: {
     title: ["International Students Information"],
     options: [
-      "Apply Now",
-      "Admission Requirements",
-      "Visa Information",
-      "Scholarships",
+      { text: "Apply Now", url: "https://metrouni.edu.bd/apply-now" },
+      { text: "Admission Requirements", url: "https://metrouni.edu.bd/requirements" },
+      { text: "Visa Information", url: "https://metrouni.edu.bd/visa" },
+      { text: "Scholarships", url: "https://metrouni.edu.bd/scholarships" },
     ],
     url: {
       more: "https://metrouni.edu.bd/international",
-      link: [
-        "https://metrouni.edu.bd/apply-now",
-        "https://metrouni.edu.bd/requirements",
-        "https://metrouni.edu.bd/visa",
-        "https://metrouni.edu.bd/scholarships",
-      ],
     },
   },
   computer: {
     title: ["Computer Science Courses"],
-    options: [
-      "Introduction to Programming",
-      "Data Structures",
-      "Algorithms",
-      "Operating Systems",
-    ],
+    content: `
+      <p>Introduction to Programming - 3 Credits</p>
+      <p>Data Structures - 3 Credits</p>
+      <p>Algorithms - 3 Credits</p>
+      <p>Operating Systems - 3 Credits</p>
+    `,
     url: {
       more: "https://metrouni.edu.bd/computer-science",
-      link: [
-        "https://metrouni.edu.bd/programming",
-        "https://metrouni.edu.bd/data-structures",
-        "https://metrouni.edu.bd/algorithms",
-        "https://metrouni.edu.bd/os",
-      ],
     },
   },
   business: {
     title: ["Business Administration Courses"],
-    options: ["Introduction to Business", "Marketing", "Finance", "Management"],
+    content: `
+      <p>Introduction to Business - 3 Credits</p>
+      <p>Marketing - 3 Credits</p>
+      <p>Finance - 3 Credits</p>
+      <p>Management - 3 Credits</p>
+    `,
     url: {
       more: "https://metrouni.edu.bd/business",
-      link: [
-        "https://metrouni.edu.bd/business-intro",
-        "https://metrouni.edu.bd/marketing",
-        "https://metrouni.edu.bd/finance",
-        "https://metrouni.edu.bd/management",
-      ],
     },
   },
   engineering: {
     title: ["Engineering Courses"],
-    options: [
-      "Introduction to Engineering",
-      "Civil Engineering",
-      "Mechanical Engineering",
-      "Electrical Engineering",
-    ],
+    content: `
+      <p>Introduction to Engineering - 3 Credits</p>
+      <p>Civil Engineering - 3 Credits</p>
+      <p>Mechanical Engineering - 3 Credits</p>
+      <p>Electrical Engineering - 3 Credits</p>
+    `,
     url: {
       more: "https://metrouni.edu.bd/engineering",
-      link: [
-        "https://metrouni.edu.bd/intro-engineering",
-        "https://metrouni.edu.bd/civil",
-        "https://metrouni.edu.bd/mechanical",
-        "https://metrouni.edu.bd/electrical",
-      ],
     },
   },
   law: {
     title: ["Law Courses"],
-    options: [
-      "Introduction to Law",
-      "Criminal Law",
-      "Constitutional Law",
-      "International Law",
-    ],
+    content: `
+      <p>Introduction to Law - 3 Credits</p>
+      <p>Criminal Law - 3 Credits</p>
+      <p>Constitutional Law - 3 Credits</p>
+      <p>International Law - 3 Credits</p>
+    `,
     url: {
       more: "https://metrouni.edu.bd/law",
-      link: [
-        "https://metrouni.edu.bd/intro-law",
-        "https://metrouni.edu.bd/criminal-law",
-        "https://metrouni.edu.bd/constitutional-law",
-        "https://metrouni.edu.bd/international-law",
-      ],
     },
   },
   pharmacy: {
     title: ["Pharmacy Courses"],
-    options: [
-      "Introduction to Pharmacy",
-      "Pharmaceutical Chemistry",
-      "Pharmacology",
-      "Clinical Pharmacy",
-    ],
+    content: `
+      <p>Introduction to Pharmacy - 3 Credits</p>
+      <p>Pharmaceutical Chemistry - 3 Credits</p>
+      <p>Pharmacology - 3 Credits</p>
+      <p>Clinical Pharmacy - 3 Credits</p>
+    `,
     url: {
       more: "https://metrouni.edu.bd/pharmacy",
-      link: [
-        "https://metrouni.edu.bd/intro-pharmacy",
-        "https://metrouni.edu.bd/pharmaceutical-chemistry",
-        "https://metrouni.edu.bd/pharmacology",
-        "https://metrouni.edu.bd/clinical-pharmacy",
-      ],
     },
   },
 };

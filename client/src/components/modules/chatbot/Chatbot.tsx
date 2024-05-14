@@ -15,7 +15,7 @@ interface ChatContent {
 const Chatbot: React.FC<Props> = () => {
   const [chatVisible, setChatVisible] = useState<boolean>(false);
   const [chatContent, setChatContent] = useState<ChatContent[]>([]);
-  const [options, setOptions] = useState<string[]>([]);
+  const [options, setOptions] = useState<{ text: string; url?: string }[]>([]);
 
   const showChatBot = () => {
     if (!chatVisible) {
@@ -32,7 +32,7 @@ const Chatbot: React.FC<Props> = () => {
       setTimeout(() => handleChat(title), index * 500);
     });
     setTimeout(() => {
-      showOptions(chat_data.chatinit.options);
+      showOptions(chat_data.chatinit.options || []); // Ensure options is always an array
     }, (chat_data.chatinit.title.length + 1) * 500);
   };
 
@@ -49,14 +49,13 @@ const Chatbot: React.FC<Props> = () => {
     handleScroll();
   };
 
-  const showOptions = (options: string[]) => {
+  const showOptions = (options: { text: string; url?: string }[]) => {
     setOptions(options);
     handleScroll();
   };
 
-  const handleOpt = (option: string) => {
-    const textArr = option.split(" ");
-    const findText = textArr[0].toLowerCase();
+  const handleOpt = (option: { text: string; url?: string }) => {
+    const findText = option.text.split(" ")[0].toLowerCase();
     const tempObj = chat_data[findText];
 
     setChatContent((prev) => [
@@ -65,7 +64,7 @@ const Chatbot: React.FC<Props> = () => {
         type: "test",
         content: (
           <p className="test">
-            <span className="rep">{option}</span>
+            <span className="rep">{option.text}</span>
           </p>
         ),
       },
@@ -74,7 +73,9 @@ const Chatbot: React.FC<Props> = () => {
     setOptions([]);
 
     if (tempObj) {
-      handleResults(tempObj.title, tempObj.options, tempObj.url || {});
+      handleResults(tempObj.title, tempObj.content, tempObj.options, tempObj.url || {});
+    } else if (option.url) {
+      window.open(option.url, "_blank");
     } else {
       console.error(`No data found for the option: ${findText}`);
     }
@@ -94,7 +95,8 @@ const Chatbot: React.FC<Props> = () => {
 
   const handleResults = (
     titles: string[],
-    options: string[],
+    content: string | undefined,
+    options: { text: string; url?: string }[] | undefined,
     url: { more?: string; link?: string[] }
   ) => {
     titles.forEach((title, index) => {
@@ -102,27 +104,25 @@ const Chatbot: React.FC<Props> = () => {
     });
 
     setTimeout(() => {
-      if (Object.keys(url).length === 0) {
+      if (content) {
+        handleChat(content);
+      }
+      if (options && options.length > 0) {
         showOptions(options);
-      } else {
+      }
+      if (url.more) {
         handleOptions(options, url);
       }
     }, titles.length * 500);
   };
 
   const handleOptions = (
-    options: string[],
+    options: { text: string; url?: string }[] | undefined,
     url: { more?: string; link?: string[] }
   ) => {
-    const opts = options.map((option, index) => (
-      <span key={index} className="opt">
-        <span>{option}</span>
-      </span>
-    ));
-
     const moreOption = (
       <span key="more" className="opt link">
-        <a className="m-link" href={url.more}>
+        <a className="m-link" href={url.more} target="_blank" rel="noopener noreferrer">
           See more
         </a>
       </span>
@@ -130,7 +130,6 @@ const Chatbot: React.FC<Props> = () => {
 
     setChatContent((prev) => [
       ...prev,
-      ...opts.map((opt) => ({ type: "opt", content: opt })),
       { type: "opt", content: moreOption },
     ]);
 
@@ -200,7 +199,7 @@ const Chatbot: React.FC<Props> = () => {
                     key={index}
                     className="opt"
                     onClick={() => handleOpt(option)}
-                    dangerouslySetInnerHTML={{ __html: option }}
+                    dangerouslySetInnerHTML={{ __html: option.text }}
                   ></span>
                 ))}
               </div>
