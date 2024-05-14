@@ -15,6 +15,7 @@ import CourseList from "../modules/course/courseList/CourseList";
 import AddCourse from "../modules/course/addCourse/AddCourse";
 import CourseDetails from "../modules/course/courseDetails/CourseDetails";
 import JoinClass from "../modules/course/joinClass/JoinClass";
+import Chatbot from "../modules/chatbot/Chatbot";
 
 const Routing = () => {
   return (
@@ -59,7 +60,10 @@ const Routing = () => {
               />
             }
           >
-            <Route path={`${RoutingList.user.edit}/:id`} element={<AddUser />} />
+            <Route
+              path={`${RoutingList.user.edit}/:id`}
+              element={<AddUser />}
+            />
           </Route>
 
           <Route
@@ -78,7 +82,10 @@ const Routing = () => {
               />
             }
           >
-            <Route path={`${RoutingList.course.join}/:id`} element={<JoinClass />} />
+            <Route
+              path={`${RoutingList.course.join}/:id`}
+              element={<JoinClass />}
+            />
           </Route>
           <Route
             element={
@@ -87,7 +94,10 @@ const Routing = () => {
               />
             }
           >
-            <Route path={`${RoutingList.course.index}/:id`} element={<CourseDetails />} />
+            <Route
+              path={`${RoutingList.course.index}/:id`}
+              element={<CourseDetails />}
+            />
           </Route>
           <Route
             element={
@@ -99,6 +109,7 @@ const Routing = () => {
             <Route path={RoutingList.course.create} element={<AddCourse />} />
           </Route>
 
+          <Route path={RoutingList.chat.index} element={<Chatbot />} />
           <Route path={RoutingList.page_not_found} element={<PageNotFound />} />
         </Routes>
       </>

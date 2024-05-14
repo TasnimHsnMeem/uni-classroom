@@ -2,7 +2,6 @@ import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiErrors';
 import { ISubmission } from './submission.interface';
 import Submission from './submission.model';
-import { Types } from 'mongoose';
 import User from '../user/user.model';
 import { USER_ROLE } from '../../../enums';
 

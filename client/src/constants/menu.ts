@@ -14,18 +14,6 @@ import { userRoles } from "./user";
 import RoutingList from "../utils/RoutingList";
 
 const allMenus = {
-  admission: {
-    create: {
-      icon: Groups2,
-      label: "Admission Request",
-      route: RoutingList?.patientAdmission?.create,
-    },
-    nav: {
-      icon: Groups2,
-      label: "Admission Request",
-      route: RoutingList?.patientAdmission?.index,
-    },
-  },
   course: {
     create: {
       icon: Class,
@@ -48,39 +36,6 @@ const allMenus = {
       icon: PeopleRounded,
       label: "User",
       route: RoutingList?.user?.index,
-    },
-  },
-  district: {
-    create: {
-      icon: Map,
-      label: "District",
-      route: RoutingList?.district.index,
-    },
-    nav: {
-      icon: Map,
-      label: "District",
-      route: RoutingList?.district.index,
-    },
-  },
-  bedStatus: {
-    nav: {
-      icon: BedRounded,
-      label: "Bed Status",
-      route: RoutingList.bedStatus.index,
-    },
-  },
-  disease: {
-    nav: {
-      icon: HealthAndSafety,
-      label: "Treatment",
-      route: RoutingList.disease.index,
-    },
-  },
-  department: {
-    nav: {
-      icon: Hub,
-      label: "Department",
-      route: RoutingList.department.index,
     },
   },
   setting: {

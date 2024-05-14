@@ -17,17 +17,8 @@ const RoutingList = {
     verify_email: "/login/verify-email",
     updatePassword: "/update-password",
   },
-  bedStatus: {
-    index: "/bed-status",
-  },
-  disease: {
-    index: "/treatment",
-  },
-  district: {
-    index: "/district",
-  },
-  department: {
-    index: "/department",
+  chat: {
+    index: "/chat",
   },
   user: {
     index: "/user",
@@ -38,10 +29,6 @@ const RoutingList = {
     index: "/settings",
     edit: "/settings/edit",
     change_password: "/settings/change-password",
-  },
-  verify: {
-    verifyLink: "/verify-link",
-    changePasswordAfterVerify: "/verify/change-password",
   },
   page_not_found: "/*",
 };
