@@ -23,8 +23,8 @@ const createSubmission: RequestHandler = catchAsync(
 const updateSubmission: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
-    const userData = req.body;
-    const result = await SubmissionService.updateSubmission(id, userData);
+    const submissionData = req.body;
+    const result = await SubmissionService.updateSubmission(id, submissionData);
     sendResponse<ISubmission>(res, {
       statusCode: httpStatus.OK,
       success: true,

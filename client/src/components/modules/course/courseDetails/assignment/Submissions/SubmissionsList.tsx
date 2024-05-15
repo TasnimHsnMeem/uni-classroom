@@ -1,11 +1,21 @@
-import React from 'react'
+import React from "react";
+import { ISubmission } from "../../CourseDetails";
+import SubmittedSingleSubmissions from "./SubmittedSingleSubmissions";
 
-type Props = {}
+type Props = {
+  submissions: string[];
+};
 
 const SubmissionsList = (props: Props) => {
-  return (
-    <div>SubmissionsList</div>
-  )
-}
+  const { submissions } = props;
 
-export default SubmissionsList
+  return (
+    <div>
+      {submissions.map((submission) => (
+        <SubmittedSingleSubmissions key={Math.random()} submission={submission}/>
+      ))}
+    </div>
+  );
+};
+
+export default SubmissionsList;

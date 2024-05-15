@@ -13,7 +13,7 @@ type Props = {
 const AssignmentSingle = (props: Props) => {
   const { assignmentId } = props;
 
-  const [assignment, setAssignment] = React.useState<IAssignment>();
+  const [assignment, setAssignment] = React.useState<any>();
 
   useEffect(() => {
     const getData = async () => {
@@ -56,7 +56,7 @@ const AssignmentSingle = (props: Props) => {
             {assignment.content}
           </Typography>
           <AddSubmissions assignmentId={assignmentId}/>
-          <SubmissionsList/>
+          <SubmissionsList submissions={assignment.submissions}/>
         </Box>
       ) : (
         <CircularProgress />

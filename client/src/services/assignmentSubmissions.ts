@@ -8,11 +8,7 @@ const create = async (assignmentId: string, values: FormikValues) => {
   return http.post(url, values);
 };
 
-const get = async (
-  pageNo: number,
-  pageSize: number,
-  filterInfo?: {  }
-) => {
+const get = async (pageNo: number, pageSize: number, filterInfo?: {}) => {
   const url = `${config.baseUrl}${config.endPoints.submission.index}`;
   return http.get(url, filterInfo);
 };
@@ -25,17 +21,15 @@ const getById = async (id: string) => {
 const update = async (
   id: string,
   body: {
-    name?: string;
-    phone?: string;
-    email?: string;
-    district?: string;
-    password?: string;
-    role?: string;
-    town?: string;
+    title?: string;
+    content?: string;
+    marks?: number;
+    feedback?: string;
+    student?: string;
   }
 ) => {
-  const url = `${config.baseUrl}${config.endPoints.user.update(id)}`;
-  return http.put(url, body);
+  const url = `${config.baseUrl}${config.endPoints.submission.getById(id)}`;
+  return http.patch(url, body);
 };
 
 const deleteCourse = async (id: string) => {

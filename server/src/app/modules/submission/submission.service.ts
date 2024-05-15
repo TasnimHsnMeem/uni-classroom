@@ -59,8 +59,7 @@ const updateSubmission = async (
   const result = await Submission.findByIdAndUpdate(id, updatedSubmissionData, {
     new: true,
   })
-    .populate('teacher')
-    .populate('posts');
+    .populate('student')
   return result;
 };
 
@@ -74,7 +73,7 @@ const getAllSubmissiones = async (userId: string): Promise<ISubmission[]> => {
 };
 
 const getSingleSubmission = async (id: string): Promise<ISubmission | null> => {
-  const selectedSubmission = await Submission.findById(id).populate('teacher');
+  const selectedSubmission = await Submission.findById(id).populate('student');
   if (selectedSubmission) {
     return selectedSubmission;
   } else {
