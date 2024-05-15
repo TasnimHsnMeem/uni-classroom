@@ -2,13 +2,46 @@ import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiErrors';
 import { ISubmission } from './submission.interface';
 import Submission from './submission.model';
-import User from '../user/user.model';
-import { USER_ROLE } from '../../../enums';
+import Assignment from '../assignment/assignment.model';
 
-const createSubmission = async (user: ISubmission): Promise<ISubmission | null> => {
-  const newSubmission = (await Submission.create(user)).populate('teacher');
-  return newSubmission;
+const createSubmission = async (assignmentId: string, submission: ISubmission): Promise<ISubmission | null> => {
+  try {
+    // Create the new submission
+    const newSubmission = await Submission.create(submission);
+
+    if (!newSubmission) {
+      throw new Error('Submission creation failed');
+    }
+
+    const assignment = await Assignment.findById(assignmentId);
+
+    if (!assignment) {
+      throw new Error('Assignment not found');
+    }
+
+    // Update the assignment with the new submission ID
+    const updatedAssignment = await Assignment.findByIdAndUpdate(
+      assignmentId,
+      { $addToSet: { submissions: newSubmission._id } },
+      { new: true }
+    );
+
+    if (!updatedAssignment) {
+      throw new Error('Assignment update failed');
+    }
+
+    // Log updated assignment details
+    console.log('Updated Assignment:', updatedAssignment);
+
+    return newSubmission;
+  } catch (error) {
+    console.error('Error in createSubmission:', error);
+    throw error;
+  }
 };
+
+
+
 
 const updateSubmission = async (
   id: string,
@@ -28,30 +61,6 @@ const updateSubmission = async (
   })
     .populate('teacher')
     .populate('posts');
-  return result;
-};
-
-const joinSubmission = async (
-  id: string,
-  studentId: string
-): Promise<ISubmission | null> => {
-  const isExist = await Submission.findById(id);
-  if (!isExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Submission not found !');
-  }
-
-  const user = await User.findById(studentId);
-  if (!user || user.role !== USER_ROLE.STUDENT) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found !');
-  }
-
-  const updatedSubmissionData: any = {
-    $addToSet: { student: studentId },
-  };
-
-  const result = await Submission.findByIdAndUpdate(id, updatedSubmissionData, {
-    new: true,
-  })
   return result;
 };
 
@@ -84,7 +93,6 @@ const deleteSingleSubmission = async (id: string): Promise<ISubmission | null> =
 
 export const SubmissionService = {
   createSubmission,
-  joinSubmission,
   updateSubmission,
   getAllSubmissiones,
   getSingleSubmission,

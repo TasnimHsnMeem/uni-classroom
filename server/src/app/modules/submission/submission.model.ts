@@ -6,7 +6,8 @@ const submissionSchema = new Schema<ISubmission>(
   {
     title: {
       type: String,
-      required: true,
+      default: "",
+      required: false,
     },
     content: {
       type: String,
@@ -14,11 +15,12 @@ const submissionSchema = new Schema<ISubmission>(
     },
     marks: {
       type: Number,
-      required: true,
+      default: null
     },
     feedback: {
+      default: "",
       type: String,
-      required: true,
+      required: false
     },
     student: {
       type: Schema.Types.ObjectId,

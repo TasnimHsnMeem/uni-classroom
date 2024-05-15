@@ -8,8 +8,9 @@ import { SubmissionService } from './submission.service';
 
 const createSubmission: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const classData = req.body;
-    const result = await SubmissionService.createSubmission(classData);
+    const submissionData = req.body;
+    const assignmentId = req.query.assignmentId;
+    const result = await SubmissionService.createSubmission(assignmentId as string, submissionData);
     sendResponse<ISubmission>(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -60,20 +61,6 @@ const getSingleSubmission: RequestHandler = catchAsync(
   }
 );
 
-const joinSubmission: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const userId = req.headers.userid as string;
-    const result = await SubmissionService.joinSubmission(id, userId);
-    sendResponse<ISubmission>(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Success',
-      data: result,
-    });
-  }
-);
-
 const deleteSingleSubmission: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
@@ -89,7 +76,6 @@ const deleteSingleSubmission: RequestHandler = catchAsync(
 
 export const SubmissionController = {
   createSubmission,
-  joinSubmission,
   updateSubmission,
   getAllSubmissions,
   getSingleSubmission,

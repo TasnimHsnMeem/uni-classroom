@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import * as authService from "./../../../services/auth";
 
@@ -8,6 +8,7 @@ import { useAppDispatch } from "../../../redux/store";
 
 const NonLoginRoutes: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     authService.logout();

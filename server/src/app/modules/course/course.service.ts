@@ -72,6 +72,9 @@ const getAllClasses = async (userId: string): Promise<ICourse[]> => {
       student: { $in: [new Types.ObjectId(userId)] },
     }).populate('teacher');
   }
+  else if (user.role === USER_ROLE.ADMIN) {
+    filteredClasses = await Course.find().populate('teacher');
+  }
 
   return filteredClasses;
 };

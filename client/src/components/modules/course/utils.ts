@@ -33,3 +33,11 @@ export const courseWorkValidationSchema = yup.object().shape({
   content: yup.string().required("Content is required"),
   files: yup.array().of(yup.string()),
 });
+
+export const submissionValidationSchema = yup.object().shape({
+  title: yup.string(),
+  content: yup.string().required("Content is required"),
+  marks: yup.number().nullable(),
+  feedback: yup.string(),
+  student: yup.string().required("Student is required"),
+});

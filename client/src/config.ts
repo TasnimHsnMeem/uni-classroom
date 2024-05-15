@@ -56,10 +56,13 @@ const config = {
       getById: (id: string) => `/post/${id}`,
       upload: `/post/upload`,
     },
-    bed: {
-      get: "/bed",
-      create: `/bed`,
-      update: (type: string) => `/bed/${type}`,
+    assignment: {
+      index: "/assignment",
+      getById: (assignmentId: string) => `/assignment/${assignmentId}`,
+    },
+    submission: {
+      index: "/submission",
+      getById: (submissionId: string) => `/submission/${submissionId}`,
     },
     utils: {
       fileUpload: (type: string) => `/utils/upload?type=${type}`,

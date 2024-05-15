@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
+import CreateAssignment from "./CreateAssignment";
+import AssignmentAll from "./AssignmentAll";
 
-type Props = {}
+type Props = {};
 
 const Assignment = (props: Props) => {
   return (
-    <div>Assignment</div>
-  )
-}
+    <div>
+      <CreateAssignment />
+      <AssignmentAll />
+    </div>
+  );
+};
 
-export default Assignment
+export default Assignment;

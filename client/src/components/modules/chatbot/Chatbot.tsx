@@ -4,6 +4,9 @@ import Img2 from "./chatbot1.png";
 import "./chatbot.css";
 import Layout from "../../common/layouts/Layout";
 import { chat_data } from "./data";
+import { RootState, useAppSelector } from "../../../redux/store";
+import { shallowEqual } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -142,6 +145,17 @@ const Chatbot: React.FC<Props> = () => {
       elem.scrollTop = elem.scrollHeight;
     }
   };
+  const {
+    isAuth,
+    user: { role },
+  } = useAppSelector((state: RootState) => {
+    return state.auth.profileData;
+  }, shallowEqual);
+
+  const navigate = useNavigate()
+  if ( !isAuth ){
+    navigate('/login')
+  }
 
   return (
     <Layout>

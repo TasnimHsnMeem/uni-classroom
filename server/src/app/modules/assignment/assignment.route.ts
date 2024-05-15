@@ -8,4 +8,6 @@ router
   .get('/', AssignmentController.getAllAssignments)
   .post('/', AssignmentController.createAssignment);
 
+router.get('/:id', AssignmentController.getSingleAssignment);
+
 export const AssignmentRoutes = router;

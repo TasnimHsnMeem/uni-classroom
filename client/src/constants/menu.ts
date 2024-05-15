@@ -66,8 +66,10 @@ const MENU = {
       allMenus.chat.nav,
       // allMenus?.setting?.nav
     ],
-    [userRoles.ADMIN]: [allMenus?.user?.nav, 
+    [userRoles.ADMIN]: [
+      allMenus?.user?.nav, 
       allMenus.chat.nav,
+      allMenus.course.nav,
       // allMenus?.setting?.nav
     ],
   },

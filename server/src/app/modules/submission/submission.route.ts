@@ -7,8 +7,6 @@ router
   .get('/', SubmissionController.getAllSubmissions)
   .post('/', SubmissionController.createSubmission);
 
-router.get('/join/:id', SubmissionController.joinSubmission);
-
 router.get('/:id', SubmissionController.getSingleSubmission);
 
 
