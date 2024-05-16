@@ -87,7 +87,7 @@ const AddCourse = () => {
         res = await courseService.create({ ...validValues, teacher: user._id });
       }
       // dispatch(setLoadingAction(false));
-      toast.success(res.data.msg);
+      toast.success("Course saved successfully");
       navigate(RoutingList?.course?.index);
     } catch (err: any) {
       dispatch(setLoadingAction(false));

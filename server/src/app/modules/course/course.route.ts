@@ -9,7 +9,9 @@ router
 
 router.get('/join/:id', CourseController.joinCourse);
 
-router.get('/:id', CourseController.getSingleCourse).delete('/:id', CourseController.deleteSingleCourse).put('/:id', CourseController.updateCourse);
-
+router
+  .get('/:id', CourseController.getSingleCourse)
+  .delete('/:id', CourseController.deleteSingleCourse)
+  .put('/:id', CourseController.updateCourse);
 
 export const CourseRoutes = router;

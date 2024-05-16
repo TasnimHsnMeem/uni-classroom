@@ -97,7 +97,7 @@ export default function UserListTable() {
     try {
       dispatch(setLoadingAction(true));
       const res = await userService.delete(id);
-      toast.success(res.data.msg);
+      toast.success("Success");
       const paginationData = await getPaginationData(0, pageSize);
       setGridData(paginationData);
       dispatch(setLoadingAction(false));

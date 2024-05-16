@@ -39,7 +39,7 @@ const CreateCourseWork = () => {
 
       res = await postService.create(id!, { ...validValues });
       dispatch(setLoadingAction(false));
-      toast.success(res.data.msg);
+      toast.success("Success");
       navigate(RoutingList?.course?.index);
     } catch (err: any) {
       dispatch(setLoadingAction(false));

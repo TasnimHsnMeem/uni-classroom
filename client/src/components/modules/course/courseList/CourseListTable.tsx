@@ -103,7 +103,7 @@ export default function CourseListTable() {
     try {
       dispatch(setLoadingAction(true));
       const res = await courseService.delete(id);
-      toast.success(res.data.msg);
+      toast.success("Success");
       const paginationData = await getPaginationData(0, pageSize);
       setGridData(paginationData);
       dispatch(setLoadingAction(false));

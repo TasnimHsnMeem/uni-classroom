@@ -41,3 +41,7 @@ export const submissionValidationSchema = yup.object().shape({
   feedback: yup.string(),
   student: yup.string().required("Student is required"),
 });
+
+export const noticeValidationSchema = yup.object().shape({
+  notice: yup.string().required("Notice is required"),
+});

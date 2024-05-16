@@ -87,7 +87,7 @@ const AddUser = () => {
         res = await userService.create(validValues);
       }
       // dispatch(setLoadingAction(false));
-      toast.success(res.data.msg);
+      toast.success("Success");
       navigate(RoutingList?.user?.index);
     } catch (err: any) {
       dispatch(setLoadingAction(false));

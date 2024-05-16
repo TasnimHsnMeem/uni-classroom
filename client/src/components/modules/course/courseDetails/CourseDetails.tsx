@@ -12,6 +12,7 @@ import Assignment from "./assignment/Assignment";
 import Notice from "./notice/Notice";
 import CourseWorkTable from "./post/CourseWorkTable";
 import CourseWork from "./post/CourseWork";
+import CreateNotice from "./notice/AddNotice";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -145,7 +146,7 @@ export default function CourseDetails() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Notice notice={courseData.notice} />
+        <CreateNotice />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <CourseWork posts={courseData.post} teacher={courseData.teacher}/>

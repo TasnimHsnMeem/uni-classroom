@@ -39,7 +39,7 @@ const CreateAssignment = () => {
 
       res = await assignmentService.create(courseId!, { ...validValues });
       dispatch(setLoadingAction(false));
-      toast.success(res.data.msg);
+      toast.success("Assignment created successfully");
       navigate(RoutingList?.course?.index);
     } catch (err: any) {
       dispatch(setLoadingAction(false));

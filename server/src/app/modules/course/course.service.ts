@@ -27,8 +27,6 @@ const updateClass = async (
   const result = await Course.findByIdAndUpdate(id, updatedClassData, {
     new: true,
   })
-    .populate('teacher')
-    .populate('posts');
   return result;
 };
 

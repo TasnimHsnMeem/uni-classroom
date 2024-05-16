@@ -22,8 +22,8 @@ const createCourse: RequestHandler = catchAsync(
 const updateCourse: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
-    const userData = req.body;
-    const result = await CourseService.updateClass(id, userData);
+    const courseData = req.body;
+    const result = await CourseService.updateClass(id, courseData);
     sendResponse<ICourse>(res, {
       statusCode: httpStatus.OK,
       success: true,

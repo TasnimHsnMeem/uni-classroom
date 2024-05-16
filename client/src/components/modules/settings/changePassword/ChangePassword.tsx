@@ -33,7 +33,7 @@ const ChangePassword: FC = (): JSX.Element => {
       dispatch(setLoadingAction(true));
       const res = await userService.changePassword(updatedInfo);
       dispatch(setLoadingAction(false));
-      toast.success(res.data.msg);
+      toast.success("Success");
       navigate(RoutingList.settings.index);
     } catch (err: any) {
       dispatch(setLoadingAction(false));

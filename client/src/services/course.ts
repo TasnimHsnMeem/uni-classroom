@@ -28,16 +28,10 @@ const getById = async (id: string) => {
 const update = async (
   id: string,
   body: {
-    name?: string;
-    phone?: string;
-    email?: string;
-    district?: string;
-    password?: string;
-    role?: string;
-    town?: string;
+    [x: string]: any;
   }
 ) => {
-  const url = `${config.baseUrl}${config.endPoints.user.update(id)}`;
+  const url = `${config.baseUrl}${config.endPoints.course.getById(id)}`;
   return http.put(url, body);
 };
 
