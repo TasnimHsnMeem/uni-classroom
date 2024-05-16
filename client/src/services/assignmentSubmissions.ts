@@ -37,12 +37,20 @@ const deleteCourse = async (id: string) => {
   return http.delete(url);
 };
 
+
+const getStudentsAllSubmission = async (assignmentId: string, userId: string) => {
+  const url = `${config.baseUrl}${config.endPoints.submission.getSubmissionByUserId(assignmentId, userId)}`;
+  return http.get(url);
+}
+
+
 const assignmentSubmissionsService = {
   get,
   getById,
   create,
   delete: deleteCourse,
   update,
+  getStudentsAllSubmission
 };
 
 export default assignmentSubmissionsService;

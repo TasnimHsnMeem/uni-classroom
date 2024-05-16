@@ -26,6 +26,11 @@ const submissionSchema = new Schema<ISubmission>(
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+    },
+    assignment:{
+      type: Schema.Types.ObjectId,
+      ref: 'Assignment',
+      required: true
     }
   },
   {

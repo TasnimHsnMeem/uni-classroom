@@ -63,6 +63,8 @@ const config = {
     submission: {
       index: "/submission",
       getById: (submissionId: string) => `/submission/${submissionId}`,
+      getSubmissionByUserId: (assignmentId: string, userId: string) =>
+        `/submission/studentsAllSubmission/${assignmentId}/${userId}`,
     },
     utils: {
       fileUpload: (type: string) => `/utils/upload?type=${type}`,

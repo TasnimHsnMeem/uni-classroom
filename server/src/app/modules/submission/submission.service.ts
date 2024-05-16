@@ -7,7 +7,7 @@ import Assignment from '../assignment/assignment.model';
 const createSubmission = async (assignmentId: string, submission: ISubmission): Promise<ISubmission | null> => {
   try {
     // Create the new submission
-    const newSubmission = await Submission.create(submission);
+    const newSubmission = await Submission.create({...submission, assignment: assignmentId});
 
     if (!newSubmission) {
       throw new Error('Submission creation failed');
@@ -90,10 +90,17 @@ const deleteSingleSubmission = async (id: string): Promise<ISubmission | null> =
   }
 };
 
+const getAllSubmissionsByUserId = async (assignmentId: string, userId: string): Promise<ISubmission[]> => {
+  const submissions = await Submission.find({ student: userId, assignment: assignmentId });
+  return submissions;
+}
+
+
 export const SubmissionService = {
   createSubmission,
   updateSubmission,
   getAllSubmissiones,
   getSingleSubmission,
   deleteSingleSubmission,
+  getAllSubmissionsByUserId
 };

@@ -27,19 +27,20 @@ const AddSubmissions = ({assignmentId}: {assignmentId: string}) => {
   const navigate = useNavigate();
 
   const saveHandler = async (values: FormikValues) => {
-    console.log("saveHandler called with values:", values); // Debug log
     try {
       const validValues = { ...values };
       dispatch(setLoadingAction(true));
       const res = await assignmentSubmissionsService.create(assignmentId, validValues);
       dispatch(setLoadingAction(false));
       toast.success(res.data.msg);
-    //   navigate(RoutingList?.course?.index);
+      navigate(RoutingList?.course?.index);
     } catch (err: any) {
       dispatch(setLoadingAction(false));
       toast.error(err.response.data.msg);
     }
   };
+
+  if (!_id) return null;
 
   return (
     <Box>

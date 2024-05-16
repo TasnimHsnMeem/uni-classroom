@@ -5,6 +5,9 @@ import { IAssignment } from "../CourseDetails";
 import { Box, Typography, CircularProgress } from "@mui/material";
 import AddSubmissions from "./Submissions/AddSubmissions";
 import SubmissionsList from "./Submissions/SubmissionsList";
+import { useAppSelector } from "../../../../../redux/store";
+import { userRoles } from "../../../../../constants/user";
+import assignmentSubmissionsService from "../../../../../services/assignmentSubmissions";
 
 type Props = {
   assignmentId: string;
@@ -12,13 +15,26 @@ type Props = {
 
 const AssignmentSingle = (props: Props) => {
   const { assignmentId } = props;
+  const { _id, role } = useAppSelector((state) => state.auth.profileData.user);
 
   const [assignment, setAssignment] = React.useState<any>();
+  const [checkIfAlreadySubmitted, setCheckIfAlreadySubmitted] =
+    React.useState<boolean>(false);
+  const [evaluatedResult, setEvaluatedResult] = React.useState<any>(false);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const result = await assignmentService.getById(assignmentId!);
+        const submissionsResultForUser =
+          await assignmentSubmissionsService.getStudentsAllSubmission(
+            assignmentId,
+            _id
+          );
+        if (submissionsResultForUser.data.data.length > 0) {
+          setCheckIfAlreadySubmitted(true);
+          setEvaluatedResult(submissionsResultForUser.data.data[0]);
+        }
         setAssignment(result.data.data);
       } catch (error) {
         console.log(error);
@@ -34,7 +50,7 @@ const AssignmentSingle = (props: Props) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: 2,
+        padding: 1,
         backgroundColor: "#f5f5f5",
       }}
     >
@@ -55,8 +71,19 @@ const AssignmentSingle = (props: Props) => {
           <Typography variant="body1" component="p">
             {assignment.content}
           </Typography>
-          <AddSubmissions assignmentId={assignmentId}/>
-          <SubmissionsList submissions={assignment.submissions}/>
+          {checkIfAlreadySubmitted ? (
+            evaluatedResult.marks ? (
+              <SubmissionsList submissions={[evaluatedResult.id]} />
+            ) : (
+              <p>Already Submitted, pending for evaluation</p>
+            )
+          ) : role === userRoles.STUDENT ? (
+            <AddSubmissions assignmentId={assignmentId} />
+          ) : null}
+
+          {role === userRoles.TEACHER && (
+            <SubmissionsList submissions={assignment.submissions} />
+          )}
         </Box>
       ) : (
         <CircularProgress />

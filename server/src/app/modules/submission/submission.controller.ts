@@ -74,10 +74,25 @@ const deleteSingleSubmission: RequestHandler = catchAsync(
   }
 );
 
+const getAllSubmissionsByUserId: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const assignmentId = req.params.assignmentId;
+    const userId = req.params.userId;
+    const result = await SubmissionService.getAllSubmissionsByUserId(assignmentId, userId);
+    sendResponse<ISubmission[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Success',
+      data: result,
+    });
+  }
+);
+
 export const SubmissionController = {
   createSubmission,
   updateSubmission,
   getAllSubmissions,
   getSingleSubmission,
   deleteSingleSubmission,
+  getAllSubmissionsByUserId
 };

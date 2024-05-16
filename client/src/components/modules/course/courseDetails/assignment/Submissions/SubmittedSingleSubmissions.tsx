@@ -7,6 +7,9 @@ import SaveIcon from "@mui/icons-material/Save";
 import { ISubmission } from "../../CourseDetails";
 import assignmentSubmissionsService from "../../../../../../services/assignmentSubmissions";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../../../../../../redux/store";
+import { userRoles } from "../../../../../../constants/user";
+import config from "../../../../../../config";
 
 type Props = {
   submission: string;
@@ -14,11 +17,15 @@ type Props = {
 
 const validationSchema = yup.object().shape({
   feedback: yup.string().required("Feedback is required"),
-  marks: yup.number().required("Marks are required").min(0, "Marks cannot be negative"),
+  marks: yup
+    .number()
+    .required("Marks are required")
+    .min(0, "Marks cannot be negative"),
 });
 
 const SubmittedSingleSubmissions = (props: Props) => {
   const { submission } = props;
+  const { role } = useAppSelector((state) => state.auth.profileData.user);
   const [submissionDetails, setSubmissionDetails] = useState<any>(null);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -34,9 +41,15 @@ const SubmittedSingleSubmissions = (props: Props) => {
     getData();
   }, [submission]);
 
-  const handleFormSubmit = async (values: { feedback: string; marks: number }) => {
+  const handleFormSubmit = async (values: {
+    feedback: string;
+    marks: number;
+  }) => {
     try {
-      const result = await assignmentSubmissionsService.update(submission, values);
+      const result = await assignmentSubmissionsService.update(
+        submission,
+        values
+      );
       setSubmissionDetails(result.data.data);
       setIsEditing(false);
       toast.success("Submission updated successfully!");
@@ -55,10 +68,23 @@ const SubmittedSingleSubmissions = (props: Props) => {
       {!isEditing ? (
         <Grid container alignItems="center" spacing={2}>
           <Grid item xs={2}>
-            <strong>{submissionDetails.student.name.firstName} {submissionDetails.student.name.lastName}</strong>
+            <strong>
+              {submissionDetails.student.name.firstName}{" "}
+              {submissionDetails.student.name.lastName}
+            </strong>
           </Grid>
           <Grid item xs={4}>
-            {submissionDetails.content}
+            <Button
+              variant="contained"
+              color="primary"
+              href={`${config.assetUrl}${submissionDetails.content}`}
+              key={submissionDetails.content}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ mt: 1, mr: 1 }}
+            >
+             File
+            </Button>
           </Grid>
           <Grid item xs={2}>
             {submissionDetails.marks}
@@ -67,9 +93,11 @@ const SubmittedSingleSubmissions = (props: Props) => {
             {submissionDetails.feedback}
           </Grid>
           <Grid item xs={1}>
-            <IconButton onClick={() => setIsEditing(true)}>
-              <EditIcon />
-            </IconButton>
+            {role === userRoles.TEACHER && (
+              <IconButton onClick={() => setIsEditing(true)}>
+                <EditIcon />
+              </IconButton>
+            )}
           </Grid>
         </Grid>
       ) : (
@@ -83,38 +111,43 @@ const SubmittedSingleSubmissions = (props: Props) => {
         >
           {({ errors, touched }) => (
             <Form>
-              <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={2}>
-                  <strong>{submissionDetails.student.name.firstName} {submissionDetails.student.name.lastName}</strong>
+              {role === userRoles.TEACHER && (
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item xs={2}>
+                    <strong>
+                      {submissionDetails.student.name.firstName}{" "}
+                      {submissionDetails.student.name.lastName}
+                    </strong>
+                  </Grid>
+                  <Grid item xs={4}>
+                    {submissionDetails.content}
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Field
+                      name="marks"
+                      as={TextField}
+                      type="number"
+                      error={touched.marks && !!errors.marks}
+                      helperText={touched.marks && errors.marks}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Field
+                      name="feedback"
+                      as={TextField}
+                      error={touched.feedback && !!errors.feedback}
+                      helperText={touched.feedback && errors.feedback}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={1}>
+                    <IconButton type="submit">
+                      <SaveIcon />
+                    </IconButton>
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  {submissionDetails.content}
-                </Grid>
-                <Grid item xs={2}>
-                  <Field
-                    name="marks"
-                    as={TextField}
-                    type="number"
-                    error={touched.marks && !!errors.marks}
-                    helperText={touched.marks && errors.marks}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <Field
-                    name="feedback"
-                    as={TextField}
-                    error={touched.feedback && !!errors.feedback}
-                    helperText={touched.feedback && errors.feedback}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={1}>
-                  <IconButton type="submit">
-                    <SaveIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
+              )}
             </Form>
           )}
         </Formik>
