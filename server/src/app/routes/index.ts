@@ -6,6 +6,7 @@ import { CourseRoutes } from '../modules/course/course.route';
 import { PostRoutes } from '../modules/post/post.route';
 import { AssignmentRoutes } from '../modules/assignment/assignment.route';
 import { SubmissionRoutes } from '../modules/submission/submission.route';
+import { AdminNoticeRoutes } from '../modules/adminNotice/adminNotice.route';
 
 const router = express.Router();
 
@@ -33,6 +34,11 @@ const moduleRoutes = [
   {
     path: '/submission',
     route: SubmissionRoutes
+  },
+  {
+    path: '/adminNotice',
+    route: AdminNoticeRoutes
+  
   }
 ];
 

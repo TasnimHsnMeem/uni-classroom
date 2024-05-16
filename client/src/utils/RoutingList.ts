@@ -25,6 +25,11 @@ const RoutingList = {
     create: "/user/add",
     edit: "/user/edit",
   },
+  adminNotice: {
+    index: "/admin-notice",
+    create: "/admin-notice/add",
+    edit: "/admin-notice/edit",
+  },  
   settings: {
     index: "/settings",
     edit: "/settings/edit",

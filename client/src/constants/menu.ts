@@ -51,22 +51,37 @@ const allMenus = {
       label: "Chat",
       route: RoutingList.chat.index,
     },
-  }
+  },
+  adminNotice: {
+    nav: {
+      icon: HealthAndSafety,
+      label: "Admin Notice",
+      route: RoutingList.adminNotice.index,
+    },
+    create: {
+      icon: FmdGood,
+      label: "Admin Notice",
+      route: RoutingList.adminNotice.create,
+    }
+  },
 };
 
 const MENU = {
   nav: {
     [userRoles.TEACHER]: [
+      allMenus.adminNotice.nav,
       allMenus.course.nav,
       allMenus.chat.nav,
       // allMenus?.setting?.nav
     ],
     [userRoles.STUDENT]: [
+      allMenus.adminNotice.nav,
       allMenus.course.nav,
       allMenus.chat.nav,
       // allMenus?.setting?.nav
     ],
     [userRoles.ADMIN]: [
+      allMenus.adminNotice.nav,
       allMenus?.user?.nav, 
       allMenus.chat.nav,
       allMenus.course.nav,
@@ -78,7 +93,9 @@ const MENU = {
       allMenus?.course?.create,
     ],
     [userRoles.STUDENT]: [],
-    [userRoles.ADMIN]: [allMenus?.user?.create, 
+    [userRoles.ADMIN]: [
+      allMenus.adminNotice.create,
+      allMenus?.user?.create, 
       // allMenus?.setting?.nav
     ],
   },

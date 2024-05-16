@@ -8,6 +8,7 @@ import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import cookies from 'cookie-parser';
 import multer from 'multer';
 import { addDummyUser } from './app/modules/user/user.dummy';
+import { addAdminNotice } from './app/modules/adminNotice/adminNotice.dummy';
 
 const app: Application = express();
 
@@ -54,4 +55,5 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 addDummyUser()
+addAdminNotice()
 export default app;

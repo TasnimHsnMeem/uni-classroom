@@ -16,6 +16,7 @@ import AddCourse from "../modules/course/addCourse/AddCourse";
 import CourseDetails from "../modules/course/courseDetails/CourseDetails";
 import JoinClass from "../modules/course/joinClass/JoinClass";
 import Chatbot from "../modules/chatbot/Chatbot";
+import AdminNotice from "../modules/adminNotice/AdminNotice";
 
 const Routing = () => {
   return (
@@ -107,6 +108,15 @@ const Routing = () => {
             }
           >
             <Route path={RoutingList.course.create} element={<AddCourse />} />
+          </Route>
+          <Route
+            element={
+              <PrivateRoutes
+                allowedRoles={permissions?.[RoutingList?.adminNotice?.index]}
+              />
+            }
+          >
+            <Route path={RoutingList.adminNotice.index} element={<AdminNotice />} />
           </Route>
 
           <Route path={RoutingList.chat.index} element={<Chatbot />} />

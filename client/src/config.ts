@@ -60,6 +60,10 @@ const config = {
       index: "/assignment",
       getById: (assignmentId: string) => `/assignment/${assignmentId}`,
     },
+    adminNotice: {
+      index: "/adminNotice",
+      getById: (noticeId: string) => `/adminNotice/${noticeId}`,
+    },
     submission: {
       index: "/submission",
       getById: (submissionId: string) => `/submission/${submissionId}`,
