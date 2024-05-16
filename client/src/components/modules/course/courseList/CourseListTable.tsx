@@ -10,7 +10,7 @@ import React, { useState } from "react";
 
 import courseService from "../../../../services/course";
 
-import { useAppDispatch } from "../../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../../redux/store";
 import { setLoadingAction } from "../../../../redux/utils/actions";
 import {
   IUserTableData,
@@ -24,6 +24,10 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import RoutingList from "../../../../utils/RoutingList";
 import CourseTableActionIcons from "./CourseTableActionIcons";
+import { userRoles } from "../../../../constants/user";
+import { useSelector } from "react-redux";
+import { Button } from "@mui/material";
+import { ContentCopy } from "@mui/icons-material";
 
 const headCells: readonly IUserTableHeadCell[] = [
   // {
@@ -47,6 +51,11 @@ const headCells: readonly IUserTableHeadCell[] = [
     label: "Created At",
   },
   {
+    id: "inviteLink",
+    numeric: true,
+    label: "Invite Link",
+  },
+  {
     id: "action",
     numeric: true,
     label: "Action",
@@ -54,6 +63,7 @@ const headCells: readonly IUserTableHeadCell[] = [
 ];
 
 export default function CourseListTable() {
+  const { role } = useAppSelector((state) => state?.auth?.profileData?.user);
   const navigate = useNavigate();
   const [pageNo, setPageNo] = useState(0);
   const [pageSize] = useState(10);
@@ -170,11 +180,31 @@ export default function CourseListTable() {
                       </TableCell>
                       {/* <TableCell align="left">
                         {new Date().toISOString().substring(0, 10)}
+                      </TableCell> */}
+                      <TableCell align="justify">
+                        {[userRoles.TEACHER].includes(role) && (
+                          <Box className={styles.actionSx}>
+                            <Button
+                              sx={{ minWidth: "auto", p: 0 }}
+                              type="button"
+                              className={styles.btnLink}
+                              onClick={async () =>
+                                await navigator.clipboard.writeText(
+                                  `http://localhost:3000${RoutingList.course.join}/${item.id}`
+                                )
+                              }
+                            >
+                              Copy {" "}<ContentCopy className={styles.colorGray} />
+                            </Button>
+                          </Box>
+                        )}
                       </TableCell>
-                      <TableCell align="left">{item?.role.replaceAll("_"," ")}</TableCell> */}
 
                       <TableCell align="right">
-                        <CourseTableActionIcons item={item} handleDelete={handleDelete} />
+                        <CourseTableActionIcons
+                          item={item}
+                          handleDelete={handleDelete}
+                        />
                       </TableCell>
                     </TableRow>
                   );

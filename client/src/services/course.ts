@@ -42,7 +42,7 @@ const update = async (
 };
 
 const deleteCourse = async (id: string) => {
-  const url = `${config.baseUrl}${config.endPoints.user.delete(id)}`;
+  const url = `${config.baseUrl}${config.endPoints.course.getById(id)}`;
   return http.delete(url);
 };
 
