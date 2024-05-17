@@ -24,18 +24,22 @@ const LoginForm: FC = () => {
     navigate(RoutingList.login.forgetPassword);
   };
 
+  const navigateToHome = () => {
+    navigate(RoutingList.index);
+  }
+
   return (
     <Box className={styles.pageBox}>
       {/* new header */}
       <Box className={styles.NewHeaders}>
         <Container maxWidth="xl">
           <Grid container className="align-items-center">
-            <Grid item md={1}>
+            <Grid item md={1} onClick={navigateToHome}>
               <img src={IMAGES.Logo2} alt="" className="img-fluid" />
             </Grid>
             <Grid item md={10}>
               <div className={`text-center ${styles.HeaderContentCenter}`}>
-                <h1 className={`text-danger ${styles.headingH1}`}>
+                <h1 className={`text-danger ${styles.headingH1}`}  onClick={navigateToHome}>
                   Metropolitan University
                 </h1>
                 <Typography

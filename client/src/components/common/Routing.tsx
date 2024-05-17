@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import PrivateRoutes from "../HOC/PrivateRoute/PrivateRoutes";
-import Home from "../modules/home/Home";
 import Login from "../modules/login/login";
 import PageNotFound from "../modules/pageNotFound/PageNotFound";
 // import AddPatient from "../modules/patient/AddPatient";
@@ -17,6 +16,7 @@ import CourseDetails from "../modules/course/courseDetails/CourseDetails";
 import JoinClass from "../modules/course/joinClass/JoinClass";
 import Chatbot from "../modules/chatbot/Chatbot";
 import AdminNotice from "../modules/adminNotice/AdminNotice";
+import Home from "../modules/home/Home";
 
 const Routing = () => {
   return (
@@ -26,14 +26,15 @@ const Routing = () => {
           <Route element={<NonLoginRoutes />}>
             <Route path={RoutingList.login.index} element={<Login />} />
           </Route>
+          <Route path={RoutingList.index} element={<Home />} />
 
-          <Route
+          {/* <Route
             element={
               <PrivateRoutes allowedRoles={permissions?.[RoutingList?.index]} />
             }
           >
             <Route path={RoutingList.index} element={<Home />} />
-          </Route>
+          </Route> */}
 
           <Route
             element={
