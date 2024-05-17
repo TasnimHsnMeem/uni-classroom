@@ -33,7 +33,7 @@ const AddSubmissions = ({assignmentId}: {assignmentId: string}) => {
       const res = await assignmentSubmissionsService.create(assignmentId, validValues);
       dispatch(setLoadingAction(false));
       toast.success("Success");
-      navigate(RoutingList?.course?.index);
+      // navigate(RoutingList?.course?.index);
     } catch (err: any) {
       dispatch(setLoadingAction(false));
       toast.error(err.response.data.msg);

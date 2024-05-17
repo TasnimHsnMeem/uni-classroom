@@ -1,6 +1,6 @@
 import { Box, Grid } from "@mui/material";
 import { Form, Formik, FormikValues } from "formik";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,39 +13,21 @@ import UserCourseTitleAndInput from "../../addCourse/UserCourseTitileAndInput";
 import assignmentService from "../../../../../services/assignment";
 import { courseWorkValidationSchema } from "../../utils";
 
-const CreateAssignment = () => {
+
+interface Props {
+  saveAssignmentHandler: (values: FormikValues) => void;
+}
+
+const CreateAssignment: FC<Props> = (props) => {
+  const { saveAssignmentHandler } = props;
+
   const [initData] = useState({
     title: "",
     content: "",
     submissions: [],
   });
 
-  const { id: courseId } = useParams();
-  const dispatch = useAppDispatch();
-
-  let navigate = useNavigate();
-
-  const saveHandler = async (values: FormikValues) => {
-    try {
-      const validValues = { ...values };
-
-      // for (const key of Object.keys(validValues)) {
-      //   if (!validValues[key]) {
-      //     delete validValues[key];
-      //   }
-      // }
-      dispatch(setLoadingAction(true));
-      let res: any;
-
-      res = await assignmentService.create(courseId!, { ...validValues });
-      dispatch(setLoadingAction(false));
-      toast.success("Assignment created successfully");
-      navigate(RoutingList?.course?.index);
-    } catch (err: any) {
-      dispatch(setLoadingAction(false));
-      toast.error(err.response.data.msg);
-    }
-  };
+  
 
   return (
     <>
@@ -63,9 +45,11 @@ const CreateAssignment = () => {
               setFieldError,
               setErrors,
               setTouched,
+              resetForm
             }
           ) => {
-            saveHandler(values);
+            resetForm();
+            saveAssignmentHandler(values);
             setSubmitting(false);
           }}
         >

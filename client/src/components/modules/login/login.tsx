@@ -9,6 +9,7 @@ import { useAppDispatch } from "../../../redux/store";
 import { userSignIn } from "../../../redux/auth/action";
 import { setLoadingAction } from "../../../redux/utils/actions";
 import { loginInitialData, loginValidationSchema } from "./utils";
+import RoutingList from "../../../utils/RoutingList";
 
 const Login: FC = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ const Login: FC = () => {
     userSignIn({ email, password })(dispatch)
       .then((res: any) => {
         dispatch(setLoadingAction(false));
-        navigate("/");
+        navigate(RoutingList.adminNotice.index);
       })
       .catch((err) => {
         dispatch(setLoadingAction(false));

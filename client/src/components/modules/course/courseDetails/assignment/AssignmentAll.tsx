@@ -9,26 +9,14 @@ import { Box, Divider, Typography } from "@mui/material";
 import assignmentSubmissionsService from "../../../../../services/assignmentSubmissions";
 import { useAppSelector } from "../../../../../redux/store";
 
-type Props = {};
+type Props = {
+  course: any;
+};
 
 const AssignmentAll = (props: Props) => {
-  const { id } = useParams<{ id: string }>();
-  const { _id } = useAppSelector((state) => state.auth.profileData.user);
-  const [course, setCourse] = React.useState<any>();
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        if (id && _id) {
-          const result = await courseService.getById(id!);
-          setCourse(result.data.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, [id, _id]);
+  const { course } = props;
+  
   return (
     <div>
       <Divider

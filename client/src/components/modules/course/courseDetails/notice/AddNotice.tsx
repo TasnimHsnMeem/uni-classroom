@@ -36,9 +36,24 @@ const CreateNotice = () => {
       let res: any;
 
       res = await courseService.update(courseId!, { ...validValues });
+      getCourse();
       dispatch(setLoadingAction(false));
       toast.success("Notice updated successfully");
-      navigate(RoutingList?.course?.index);
+      // navigate(RoutingList?.course?.index);
+    } catch (err: any) {
+      dispatch(setLoadingAction(false));
+      toast.error(err.response.data.msg);
+    }
+  };
+
+  const getCourse = async () => {
+    dispatch(setLoadingAction(true));
+    try {
+      const res = await courseService.getById(courseId!);
+      dispatch(setLoadingAction(false));
+      if (res.data) {
+        setInitData((prev) => ({ ...prev, notice: res.data.data.notice }));
+      }
     } catch (err: any) {
       dispatch(setLoadingAction(false));
       toast.error(err.response.data.msg);
@@ -46,19 +61,6 @@ const CreateNotice = () => {
   };
 
   useEffect(() => {
-    const getCourse = async () => {
-      dispatch(setLoadingAction(true));
-      try {
-        const res = await courseService.getById(courseId!);
-        dispatch(setLoadingAction(false));
-        if (res.data) {
-          setInitData((prev) => ({ ...prev, notice: res.data.data.notice }));
-        }
-      } catch (err: any) {
-        dispatch(setLoadingAction(false));
-        toast.error(err.response.data.msg);
-      }
-    };
     getCourse();
   }, []);
 
@@ -99,7 +101,9 @@ const CreateNotice = () => {
                     title="Notice*"
                     name="notice"
                     placeholder="Notice"
-                    disabled={![userRoles.TEACHER, userRoles.ADMIN].includes(role)}
+                    disabled={
+                      ![userRoles.TEACHER, userRoles.ADMIN].includes(role)
+                    }
                   />
                   {[userRoles.TEACHER, userRoles.ADMIN].includes(role) && (
                     <Box
