@@ -57,12 +57,12 @@ export const chat_data: Data = {
   events: {
     title: ["Upcoming University Events"],
     options: [
-      { text: "Orientation Program - January 15", url: "https://metrouni.edu.bd/orientation" },
-      { text: "Cultural Fest - February 20", url: "https://metrouni.edu.bd/cultural-fest" },
-      { text: "Convocation - December 10", url: "https://metrouni.edu.bd/convocation" },
+      { text: "Orientation Program - January 15", url: "https://metrouni.edu.bd/sites/university/announcement" },
+      { text: "Cultural Fest - February 20", url: "https://metrouni.edu.bd/sites/university/event-calendar" },
+      { text: "Convocation - December 10", url: "https://metrouni.edu.bd/sites/university/convocation" },
     ],
     url: {
-      more: "https://metrouni.edu.bd/events",
+      more: "https://metrouni.edu.bd/sites/university/event-calendar",
     },
   },
   contact: {
@@ -70,55 +70,55 @@ export const chat_data: Data = {
     options: [
       { text: "Phone: +880123456789" },
       { text: "Email: info@metrouni.edu.bd" },
-      { text: "Visit Us", url: "https://metrouni.edu.bd/contact" },
+      { text: "Visit Us", url: "https://metrouni.edu.bd/sites/university/contact" },
     ],
   },
   undergraduate: {
     title: ["Undergraduate Admissions Information"],
     options: [
-      { text: "Apply Now", url: "https://metrouni.edu.bd/apply-now" },
-      { text: "Admission Requirements", url: "https://metrouni.edu.bd/requirements" },
-      { text: "Tuition Fees", url: "https://metrouni.edu.bd/tuition" },
-      { text: "Scholarships", url: "https://metrouni.edu.bd/scholarships" },
+      { text: "Apply Now", url: "https://metrouni.edu.bd/sites/admission/online-admission-form" },
+      { text: "Admission Requirements", url: "https://metrouni.edu.bd/sites/admission/undergraduate" },
+      { text: "Tuition Fees", url: "https://metrouni.edu.bd/sites/admission/programme-fee-structure" },
+      { text: "Scholarships", url: "https://metrouni.edu.bd/sites/admission/scholarship-aid" },
     ],
     url: {
-      more: "https://metrouni.edu.bd/undergraduate",
+      more: "https://metrouni.edu.bd/sites/admission/undergraduate",
     },
   },
   postgraduate: {
     title: ["Postgraduate Admissions Information"],
     options: [
-      { text: "Apply Now", url: "https://metrouni.edu.bd/apply-now" },
-      { text: "Admission Requirements", url: "https://metrouni.edu.bd/requirements" },
-      { text: "Tuition Fees", url: "https://metrouni.edu.bd/tuition" },
-      { text: "Scholarships", url: "https://metrouni.edu.bd/scholarships" },
+      { text: "Apply Now", url: "https://metrouni.edu.bd/sites/admission/online-admission-form" },
+      { text: "Admission Requirements", url: "https://metrouni.edu.bd/sites/admission/graduate" },
+      { text: "Tuition Fees", url: "https://metrouni.edu.bd/sites/admission/programme-fee-structure" },
+      { text: "Scholarships", url: "https://metrouni.edu.bd/sites/admission/scholarship-aid" },
     ],
     url: {
-      more: "https://metrouni.edu.bd/postgraduate",
+      more: "https://metrouni.edu.bd/sites/admission/graduate",
     },
   },
   phd: {
     title: ["PhD Admissions Information"],
     options: [
-      { text: "Apply Now", url: "https://metrouni.edu.bd/apply-now" },
-      { text: "Admission Requirements", url: "https://metrouni.edu.bd/requirements" },
-      { text: "Research Opportunities", url: "https://metrouni.edu.bd/research" },
-      { text: "Funding", url: "https://metrouni.edu.bd/funding" },
+      { text: "Apply Now", url: "https://metrouni.edu.bd/sites/admission/online-admission-form" },
+      { text: "Admission Requirements", url: "https://metrouni.edu.bd/sites/admission/graduate" },
+      { text: "Tuition Fees", url: "https://metrouni.edu.bd/sites/admission/programme-fee-structure" },
+      { text: "Scholarships", url: "https://metrouni.edu.bd/sites/admission/scholarship-aid" },
     ],
     url: {
-      more: "https://metrouni.edu.bd/phd",
+      more: "https://metrouni.edu.bd/sites/admission/graduate",
     },
   },
   international: {
     title: ["International Students Information"],
     options: [
-      { text: "Apply Now", url: "https://metrouni.edu.bd/apply-now" },
-      { text: "Admission Requirements", url: "https://metrouni.edu.bd/requirements" },
-      { text: "Visa Information", url: "https://metrouni.edu.bd/visa" },
-      { text: "Scholarships", url: "https://metrouni.edu.bd/scholarships" },
+      { text: "Apply Now", url: "https://metrouni.edu.bd/sites/admission/online-admission-form" },
+      { text: "Admission Requirements", url: "https://metrouni.edu.bd/sites/admission/graduate" },
+      { text: "Tuition Fees", url: "https://metrouni.edu.bd/sites/admission/programme-fee-structure" },
+      { text: "Scholarships", url: "https://metrouni.edu.bd/sites/admission/scholarship-aid" },
     ],
     url: {
-      more: "https://metrouni.edu.bd/international",
+      more: "https://metrouni.edu.bd/sites/admission/graduate",
     },
   },
   computer: {
@@ -130,7 +130,7 @@ export const chat_data: Data = {
       <p>Operating Systems - 3 Credits</p>
     `,
     url: {
-      more: "https://metrouni.edu.bd/computer-science",
+      more: "https://metrouni.edu.bd/sites/facilities/laboratory-resources",
     },
   },
   business: {
@@ -142,7 +142,7 @@ export const chat_data: Data = {
       <p>Management - 3 Credits</p>
     `,
     url: {
-      more: "https://metrouni.edu.bd/business",
+      more: "https://metrouni.edu.bd/sites/school-of-business-economics/school-of-business-economics",
     },
   },
   engineering: {
@@ -154,7 +154,7 @@ export const chat_data: Data = {
       <p>Electrical Engineering - 3 Credits</p>
     `,
     url: {
-      more: "https://metrouni.edu.bd/engineering",
+      more: "https://metrouni.edu.bd/sites/school-of-science-technology/school-of-science-technology",
     },
   },
   law: {
@@ -166,7 +166,7 @@ export const chat_data: Data = {
       <p>International Law - 3 Credits</p>
     `,
     url: {
-      more: "https://metrouni.edu.bd/law",
+      more: "https://metrouni.edu.bd/sites/school-of-law/school-of-law",
     },
   },
   pharmacy: {
