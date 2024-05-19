@@ -270,11 +270,12 @@ const Chatbot: React.FC<Props> = () => {
           box-shadow: 0 0 3px rgb(153,153,153);
       }
       #chat-box{
+          border-radius: 5%;
           position: relative;
           top: 40px;
           padding: 8px 10px;
           font-size: 12px;
-          height: 24.2rem;
+          height: 27.5rem;
           overflow: auto;
           background: rgb(224,241,253);
           text-align: center;
@@ -359,8 +360,8 @@ const Chatbot: React.FC<Props> = () => {
             id="test"
             style={{
               position: "fixed",
-              top: "4rem",
-              right: "8rem",
+              bottom: "4rem",
+              right: "4rem",
               display: "block",
             }}
           >

@@ -189,9 +189,7 @@ export default function CourseListTable() {
                               type="button"
                               className={styles.btnLink}
                               onClick={async () =>
-                                await navigator.clipboard.writeText(
-                                  `http://localhost:3000${RoutingList.course.join}/${item.id}`
-                                )
+                                await navigator.clipboard.writeText(item.id)
                               }
                             >
                               Copy {" "}<ContentCopy className={styles.colorGray} />
