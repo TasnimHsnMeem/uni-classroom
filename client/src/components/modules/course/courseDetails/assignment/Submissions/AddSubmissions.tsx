@@ -12,7 +12,7 @@ import { courseWorkValidationSchema, submissionValidationSchema } from "../../..
 import postService from "../../../../../../services/post";
 import assignmentService from "../../../../../../services/assignment";
 
-const AddSubmissions = ({assignmentId}: {assignmentId: string}) => {
+const AddSubmissions = ({assignmentId, refetch}: {assignmentId: string, refetch: () => Promise<void>}) => {
   const { _id } = useAppSelector((state) => state.auth.profileData.user);
 
   const initData = useMemo<FormikValues>(
@@ -31,6 +31,7 @@ const AddSubmissions = ({assignmentId}: {assignmentId: string}) => {
       const validValues = { ...values };
       dispatch(setLoadingAction(true));
       const res = await assignmentSubmissionsService.create(assignmentId, validValues);
+      refetch()
       dispatch(setLoadingAction(false));
       toast.success("Success");
       // navigate(RoutingList?.course?.index);

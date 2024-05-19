@@ -21,25 +21,25 @@ const AssignmentSingle = (props: Props) => {
   const [checkIfAlreadySubmitted, setCheckIfAlreadySubmitted] =
     React.useState<boolean>(false);
   const [evaluatedResult, setEvaluatedResult] = React.useState<any>(false);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const result = await assignmentService.getById(assignmentId!);
-        const submissionsResultForUser =
-          await assignmentSubmissionsService.getStudentsAllSubmission(
-            assignmentId,
-            _id
-          );
-        if (submissionsResultForUser.data.data.length > 0) {
-          setCheckIfAlreadySubmitted(true);
-          setEvaluatedResult(submissionsResultForUser.data.data[0]);
-        }
-        setAssignment(result.data.data);
-      } catch (error) {
-        console.log(error);
+  const getData = async () => {
+    try {
+      const result = await assignmentService.getById(assignmentId!);
+      const submissionsResultForUser =
+        await assignmentSubmissionsService.getStudentsAllSubmission(
+          assignmentId,
+          _id
+        );
+      if (submissionsResultForUser.data.data.length > 0) {
+        setCheckIfAlreadySubmitted(true);
+        setEvaluatedResult(submissionsResultForUser.data.data[0]);
       }
-    };
+      setAssignment(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    
     getData();
   }, [assignmentId]);
 
@@ -78,7 +78,7 @@ const AssignmentSingle = (props: Props) => {
               <p>Already Submitted, pending for evaluation</p>
             )
           ) : role === userRoles.STUDENT ? (
-            <AddSubmissions assignmentId={assignmentId} />
+            <AddSubmissions assignmentId={assignmentId} refetch={getData}/>
           ) : null}
 
           {role === userRoles.TEACHER && (

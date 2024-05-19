@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
   },
 });
 
-export const uploadToMulter = multer({ storage });
+const uploadToMulter = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 app.use(cors());
 app.use(cookies());
