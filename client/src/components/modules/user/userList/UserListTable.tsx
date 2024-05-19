@@ -18,7 +18,7 @@ import { IUserTableData, IUserTableHeadCell } from "../../../../types/user/userT
 import { logger } from "../../../../utils/logger";
 
 import { toast } from "react-toastify";
-import styles from "./../styles/styles.module.scss";
+import styles from "../../styles/styles.module.scss";
 
 const headCells: readonly IUserTableHeadCell[] = [
   // {

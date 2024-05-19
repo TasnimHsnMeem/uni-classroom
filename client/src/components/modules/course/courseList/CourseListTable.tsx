@@ -19,7 +19,7 @@ import {
 import { logger } from "../../../../utils/logger";
 
 import { toast } from "react-toastify";
-import styles from "./../styles/styles.module.scss";
+import styles from "../../styles/styles.module.scss";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import RoutingList from "../../../../utils/RoutingList";

@@ -10,7 +10,7 @@ import { RootState } from "../../../../redux/store";
 import { userRoles } from "../../../../constants/user";
 import RoutingList from "../../../../utils/RoutingList";
 
-import styles from "./../styles/styles.module.scss";
+import styles from "../../styles/styles.module.scss";
 
 type Props = {
     item: any;

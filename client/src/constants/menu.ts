@@ -25,6 +25,11 @@ const allMenus = {
       label: "Course",
       route: RoutingList?.course?.index,
     },
+    join: {
+      icon: Class,
+      label: "Join Course",
+      route: RoutingList?.course?.join,
+    },
   },
   user: {
     create: {
@@ -92,7 +97,9 @@ const MENU = {
     [userRoles.TEACHER]: [
       allMenus?.course?.create,
     ],
-    [userRoles.STUDENT]: [],
+    [userRoles.STUDENT]: [
+      allMenus?.course?.join
+    ],
     [userRoles.ADMIN]: [
       allMenus.adminNotice.create,
       allMenus?.user?.create, 

@@ -4,30 +4,30 @@ import { Box, Checkbox, Divider, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Formik, FormikErrors, FormikValues } from "formik";
 
-import AddUserForm from "./AddUserForm";
+// import AddCourseForm from "./AddCourseForm";
 import StepsHeadingSection from "../../../common/form/Steps/StepsHeadingSection";
 import FormStepNavComponent from "../../../common/form/Steps/FormStepComponent";
 import FormStepBottomComponent from "../../../common/form/Steps/FormStepBottomComponent";
 import ConfirmationModal from "../../../common/modal/confirmationModal/ConfirmationModal";
 
-import userService from "../../../../services/user";
+import courseService from "../../../../services/course";
 
 import { logger } from "../../../../utils/logger";
-import { useAppDispatch } from "../../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../../redux/store";
 import { setLoadingAction } from "../../../../redux/utils/actions";
 import RoutingList from "../../../../utils/RoutingList";
 import {
-  userCreateInitData,
-  userCreationStepsInfo,
-  userCreationValidationSchema,
-  userEditStepsInfo,
+  joinCourseInitData,
+  joinCourseStepsInfo,
+  joinCourseValidationSchema,
 } from "../utils";
 import styles from "../../styles/styles.module.scss";
+import AddJoinClassForm from "./AddJoinClass";
 
-const AddUser = () => {
-  const [initData, setInitData] = useState(userCreateInitData);
+const JoinClassPage = () => {
+  const [initData] = useState(joinCourseInitData);
   const [isPasswordEditable, setIsPasswordEditable] = useState(false);
-  const [stepsInfo, setStepsInfo] = useState(userCreationStepsInfo);
+  const [stepsInfo, setStepsInfo] = useState(joinCourseStepsInfo);
   const [steps, setSteps] = useState(0);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
@@ -71,62 +71,29 @@ const AddUser = () => {
   const saveHandler = async (values: FormikValues) => {
     try {
       const validValues = { ...values };
-
-      delete validValues["confirmPassword"];
-
-      for (const key of Object.keys(validValues)) {
-        if (!validValues[key]) {
-          delete validValues[key];
-        }
-      }
       dispatch(setLoadingAction(true));
-      let res: any;
-      if (id) {
-        res = await userService.update(id, validValues);
-      } else {
-        res = await userService.create(validValues);
-      }
-      // dispatch(setLoadingAction(false));
-      toast.success("Success");
-      navigate(RoutingList?.user?.index);
+      const res = await courseService.joinClass(validValues.code as string);
+      dispatch(setLoadingAction(false));
+      toast.success("Joined class successfully");
+      navigate(RoutingList?.course?.index);
     } catch (err: any) {
       dispatch(setLoadingAction(false));
       toast.error(err.response.data.msg);
     }
   };
 
-  const changePasswordHandler = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setFieldValue: (
-      field: string,
-      value: any,
-      shouldValidate?: boolean | undefined
-    ) => void
-  ) => {
-    const checked = e.target.checked;
-    setIsPasswordEditable(checked);
-    if (checked) {
-      setStepsInfo(userCreationStepsInfo);
-    } else {
-      setSteps(0);
-      setFieldValue("password", "");
-      setFieldValue("confirmPassword", "");
-      setStepsInfo(userEditStepsInfo);
-    }
-  };
-
-  useEffect(() => {
-    if (id) {
-      setStepsInfo(userEditStepsInfo);
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     setStepsInfo(joinCourseStepsInfo);
+  //   }
+  // }, [id]);
 
   return (
     <>
       <Box className={styles.boxPadding}>
         <Formik
           enableReinitialize={true}
-          validationSchema={userCreationValidationSchema[steps]}
+          validationSchema={joinCourseValidationSchema}
           initialValues={initData}
           // validateOnChange={false}
           onSubmit={(
@@ -156,7 +123,11 @@ const AddUser = () => {
             setFieldValue,
           }) => (
             <Form>
-              <StepsHeadingSection title="User" subtitle="User" isEdit={!!id} />
+              <StepsHeadingSection
+                title="Course Joining"
+                subtitle="to my enrolled courses"
+                isEdit={!!id}
+              />
               <FormStepNavComponent
                 steps={steps}
                 setSteps={setSteps}
@@ -165,7 +136,7 @@ const AddUser = () => {
               />
               <Grid container sx={{ justifyContent: "center" }}>
                 <Grid item xs={12} md={8}>
-                  <AddUserForm steps={steps} />
+                  <AddJoinClassForm steps={steps} />
                   <Divider className={styles.mTopBottom20} />
                   <ConfirmationModal
                     open={showConfirmationModal}
@@ -175,21 +146,6 @@ const AddUser = () => {
                       setShowConfirmationModal(false);
                     }}
                   />{" "}
-                  {id && (
-                    <>
-                      <Checkbox
-                        checked={isPasswordEditable}
-                        name="isTermsAccepted"
-                        onChange={(e) =>
-                          changePasswordHandler(e, setFieldValue)
-                        }
-                      />
-                      <p className="form-label font-size-14 font-weight-medium cursor-pointer text-danger">
-                        Want to change password?
-                      </p>
-                      <Divider className={styles.mTopBottom20} />
-                    </>
-                  )}
                   <FormStepBottomComponent
                     steps={steps}
                     setSteps={setSteps}
@@ -206,4 +162,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default JoinClassPage;

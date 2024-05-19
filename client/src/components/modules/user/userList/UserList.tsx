@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import { Formik, Form } from "formik";
 import { logger } from "../../../../utils/logger";
 import SearchField from "../../../common/Search/Search";
-import styles from "../styles/styles.module.scss";
+import styles from "../../styles/styles.module.scss";
 import UserListTable from "./UserListTable";
 import { useState } from "react";
 

@@ -6,6 +6,10 @@ export const courseCreationStepsInfo = [
   { icon: ContentPaste, title: "Course details" },
 ];
 
+export const joinCourseStepsInfo = [
+  { icon: ContentPaste, title: "Course Code" },
+];
+
 export const courseEditStepsInfo = [
   { icon: ContentPaste, title: "Course details" },
 ];
@@ -18,6 +22,14 @@ export const courseCreateInitData = {
   notice: "",
   assignments: [],
 };
+
+export const joinCourseInitData = {
+  code: "",
+};
+
+export const joinCourseValidationSchema = yup.object().shape({
+  code: yup.string().required("Code is required"),
+});
 
 const courseCreationValidationFirstStep = {
   name: yup.string().required("Name is required")

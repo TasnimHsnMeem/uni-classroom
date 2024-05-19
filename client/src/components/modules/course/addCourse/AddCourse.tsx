@@ -22,7 +22,7 @@ import {
   courseCreationValidationSchema,
   courseEditStepsInfo,
 } from "../utils";
-import styles from "./../styles/styles.module.scss";
+import styles from "../../styles/styles.module.scss";
 
 const AddCourse = () => {
   const [initData] = useState(courseCreateInitData);

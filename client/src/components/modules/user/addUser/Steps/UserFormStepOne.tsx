@@ -6,7 +6,7 @@ import FormStepTitle from "../../../../common/form/Steps/FormStepTitle";
 import DropdownField from "../../../../common/form/dropdown/DropdownField";
 
 import { userRoles } from "../../../../../constants/user";
-import styles from "./../../styles/styles.module.scss";
+import styles from "../../../styles/styles.module.scss";
 import { useParams } from "react-router-dom";
 
 type Props = {

@@ -1,6 +1,9 @@
 
 const BASE_URL = "http://localhost:5000/api/v1";
 const ASSET_URL = "http://localhost:5000/"
+
+// const BASE_URL = "https://mu-web-server-9f8c1f066ac0.herokuapp.com/api/v1";
+// const ASSET_URL = "https://mu-web-server-9f8c1f066ac0.herokuapp.com/"
 const AUTH_URL = "";
 
 const config = {

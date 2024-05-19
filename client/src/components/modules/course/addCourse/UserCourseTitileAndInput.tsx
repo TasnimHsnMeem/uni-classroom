@@ -2,7 +2,7 @@ import { FormikValues, useFormikContext } from "formik";
 import React from "react";
 
 import InputField from "../../../common/form/input/InputField";
-import styles from "./../styles/styles.module.scss";
+import styles from "../../styles/styles.module.scss";
 
 const UserCourseTitleAndInput = ({
   title,

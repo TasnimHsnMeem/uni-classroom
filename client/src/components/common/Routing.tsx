@@ -17,6 +17,7 @@ import JoinClass from "../modules/course/joinClass/JoinClass";
 import Chatbot from "../modules/chatbot/Chatbot";
 import AdminNotice from "../modules/adminNotice/AdminNotice";
 import Home from "../modules/home/Home";
+import JoinClassPage from "../modules/course/joinClass/JoinClassPage";
 
 const Routing = () => {
   return (
@@ -87,6 +88,18 @@ const Routing = () => {
             <Route
               path={`${RoutingList.course.join}/:id`}
               element={<JoinClass />}
+            />
+          </Route>
+          <Route
+            element={
+              <PrivateRoutes
+                allowedRoles={permissions?.[RoutingList?.course?.join]}
+              />
+            }
+          >
+            <Route
+              path={`${RoutingList.course.join}`}
+              element={<JoinClassPage />}
             />
           </Route>
           <Route

@@ -11,7 +11,7 @@ import RoutingList from "../../../../../utils/RoutingList";
 import Button from "../../../../common/Button";
 import UserCourseTitleAndInput from "../../addCourse/UserCourseTitileAndInput";
 
-import styles from "../../styles/styles.module.scss";
+import styles from "../../../styles/styles.module.scss";
 import { courseWorkValidationSchema } from "../../utils";
 
 interface Props{
