@@ -25,7 +25,7 @@ import {
 import styles from "../../styles/styles.module.scss";
 
 const AddCourse = () => {
-  const [initData] = useState(courseCreateInitData);
+  const [initData, setInitData] = useState(courseCreateInitData);
   const [isPasswordEditable, setIsPasswordEditable] = useState(false);
   const [stepsInfo, setStepsInfo] = useState(courseCreationStepsInfo);
   const [steps, setSteps] = useState(0);
@@ -94,30 +94,21 @@ const AddCourse = () => {
       toast.error(err.response.data.msg);
     }
   };
-
-  const changePasswordHandler = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setFieldValue: (
-      field: string,
-      value: any,
-      shouldValidate?: boolean | undefined
-    ) => void
-  ) => {
-    const checked = e.target.checked;
-    setIsPasswordEditable(checked);
-    if (checked) {
-      setStepsInfo(courseCreationStepsInfo);
-    } else {
-      setSteps(0);
-      setFieldValue("password", "");
-      setFieldValue("confirmPassword", "");
-      setStepsInfo(courseEditStepsInfo);
-    }
-  };
-
+  
   useEffect(() => {
     if (id) {
       setStepsInfo(courseEditStepsInfo);
+      const getCourseData = async () => {
+        try {
+          dispatch(setLoadingAction(true));
+          const res = await courseService.getById(id);
+          dispatch(setLoadingAction(false));
+          setInitData({ ...res.data.data });
+        } catch {
+          dispatch(setLoadingAction(false));
+        }
+      };
+      getCourseData();
     }
   }, [id]);
 
@@ -179,21 +170,6 @@ const AddCourse = () => {
                       setShowConfirmationModal(false);
                     }}
                   />{" "}
-                  {id && (
-                    <>
-                      <Checkbox
-                        checked={isPasswordEditable}
-                        name="isTermsAccepted"
-                        onChange={(e) =>
-                          changePasswordHandler(e, setFieldValue)
-                        }
-                      />
-                      <p className="form-label font-size-14 font-weight-medium cursor-pointer text-danger">
-                        Want to change password?
-                      </p>
-                      <Divider className={styles.mTopBottom20} />
-                    </>
-                  )}
                   <FormStepBottomComponent
                     steps={steps}
                     setSteps={setSteps}

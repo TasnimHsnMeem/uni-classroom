@@ -34,8 +34,8 @@ const CourseTableActionIcons = (props: Props) => {
     shallowEqual
   );
 
-  const navigateToUserEdit = (id: string) => {
-    navigate(`${RoutingList.user.edit}/${id}`);
+  const navigateToCourseEdit = (id: string) => {
+    navigate(`${RoutingList.course.edit}/${id}`);
   };
 
   const openConfirmationModal = () => {
@@ -54,6 +54,19 @@ const CourseTableActionIcons = (props: Props) => {
   return (
     <>
       <Box className={styles.actionSx}>
+        {[userRoles.TEACHER].includes(role) && (
+          <Box className={styles.actionSx}>
+            <Button
+              sx={{ minWidth: "auto", p: 0 }}
+              type="button"
+              className={styles.btnLink}
+              onClick={() => navigateToCourseEdit(item.id)}
+            >
+              <Edit sx={{ color: "#606164" }} />
+            </Button>
+          </Box>
+        )}
+
         {[userRoles.ADMIN, userRoles.TEACHER].includes(role) && (
           <Box className={styles.actionSx}>
             <Button

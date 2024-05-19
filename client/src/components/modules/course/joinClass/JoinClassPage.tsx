@@ -75,18 +75,12 @@ const JoinClassPage = () => {
       const res = await courseService.joinClass(validValues.code as string);
       dispatch(setLoadingAction(false));
       toast.success("Joined class successfully");
-      navigate(RoutingList?.course?.index);
+      navigate(RoutingList?.course?.index+"/"+id);
     } catch (err: any) {
       dispatch(setLoadingAction(false));
       toast.error(err.response.data.msg);
     }
   };
-
-  // useEffect(() => {
-  //   if (id) {
-  //     setStepsInfo(joinCourseStepsInfo);
-  //   }
-  // }, [id]);
 
   return (
     <>

@@ -117,6 +117,15 @@ const Routing = () => {
           <Route
             element={
               <PrivateRoutes
+                allowedRoles={permissions?.[RoutingList?.course?.edit]}
+              />
+            }
+          >
+            <Route path={`${RoutingList.course.edit}/:id`} element={<AddCourse />} />
+          </Route>
+          <Route
+            element={
+              <PrivateRoutes
                 allowedRoles={permissions?.[RoutingList?.course?.create]}
               />
             }
