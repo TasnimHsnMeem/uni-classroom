@@ -14,4 +14,6 @@ router
   .delete('/:id', CourseController.deleteSingleCourse)
   .put('/:id', CourseController.updateCourse);
 
+router.get('/leave/:id', CourseController.leaveClass);
+
 export const CourseRoutes = router;

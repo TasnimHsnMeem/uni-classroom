@@ -87,6 +87,20 @@ const deleteSingleCourse: RequestHandler = catchAsync(
   }
 );
 
+const leaveClass: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const userId = req.headers.userid as string;
+    const result = await CourseService.leaveClass(id, userId);
+    sendResponse<ICourse>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Success',
+      data: result,
+    });
+  }
+);
+
 export const CourseController = {
   createCourse,
   joinCourse,
@@ -94,4 +108,5 @@ export const CourseController = {
   getAllCourses,
   getSingleCourse,
   deleteSingleCourse,
+  leaveClass,
 };

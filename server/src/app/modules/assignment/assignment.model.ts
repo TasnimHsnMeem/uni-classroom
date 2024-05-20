@@ -15,6 +15,7 @@ const assignmentSchema = new Schema<IAssignment>(
     submissions: {
       type: [Types.ObjectId],
       default: [],
+      ref: 'Submission',
     },
   },
   {

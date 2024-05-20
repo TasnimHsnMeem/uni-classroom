@@ -53,6 +53,7 @@ const config = {
       index: "/course",
       getById: (id: string) => `/course/${id}`,
       join: (id: string) => `/course/join/${id}`,
+      leave: (id: string) => `/course/leave/${id}`,
     },
     post: {
       index: "/post",

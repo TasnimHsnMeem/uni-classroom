@@ -45,6 +45,11 @@ const joinClass = async (id: string) => {
   return http.get(url);
 }
 
+const leaveClass = async (id: string) => {
+  const url = `${config.baseUrl}${config.endPoints.course.leave(id)}`;
+  return http.get(url);
+}
+
 const getLoggedInUserData = async () => {
   const url = `${config.baseUrl}${config.endPoints.user.getMe}`;
   return http.get(url);
@@ -73,6 +78,7 @@ const courseService = {
   verify,
   changePassword,
   getLoggedInUserData,
+  leaveClass
 };
 
 export default courseService;

@@ -1,19 +1,31 @@
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { useParams } from "react-router-dom";
-import { useAppDispatch } from "../../../../redux/store";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../redux/store";
 import { setLoadingAction } from "../../../../redux/utils/actions";
 import courseService from "../../../../services/course";
 import { logger } from "../../../../utils/logger";
+import {
+  Box,
+  Button,
+  Tab,
+  Tabs,
+  Typography,
+  Paper,
+  IconButton,
+  Avatar,
+  Grid,
+} from "@mui/material";
 import Assignment from "./assignment/Assignment";
 import Notice from "./notice/Notice";
 import CourseWorkTable from "./post/CourseWorkTable";
 import CourseWork from "./post/CourseWork";
 import CreateNotice from "./notice/AddNotice";
 import CourseStudent from "../CourseStudent/CourseStudent";
+import RoutingList from "../../../../utils/RoutingList";
+import ConfirmationModal from "../../../common/modal/confirmationModal/ConfirmationModal";
+import { toast } from "react-toastify";
+import { userRoles } from "../../../../constants/user";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -97,10 +109,13 @@ function a11yProps(index: number) {
 }
 
 export default function CourseDetails() {
+  const { role } = useAppSelector((state) => state.auth.profileData.user);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [value, setValue] = React.useState(0);
   const [courseData, setCourseData] = React.useState<ICourse>({} as ICourse);
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -113,11 +128,22 @@ export default function CourseDetails() {
         const res = await courseService.getById(id);
         setCourseData(res.data.data);
         dispatch(setLoadingAction(false));
+      } catch (error: any) {
+        dispatch(setLoadingAction(false));
+        logger.error(error);
+      }
+    }
+  };
 
-        const formValues = {
-          ...res.data.data,
-        };
-        // setValues(formValues);
+  const handleLeaveClass = async () => {
+    if (id) {
+      try {
+        dispatch(setLoadingAction(true));
+        // await leaveClass(id, userId);
+        const res = await courseService.leaveClass(id);
+        dispatch(setLoadingAction(false));
+        toast.success("Left class successfully");
+        navigate(RoutingList.course.index);
       } catch (error: any) {
         dispatch(setLoadingAction(false));
         logger.error(error);
@@ -126,59 +152,96 @@ export default function CourseDetails() {
   };
 
   React.useEffect(() => {
-    // console.log("value", value);
-    
     getData();
   }, []);
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box
+    <Box sx={{ width: "100%", padding: "16px" }}>
+      <Paper
+        elevation={3}
         sx={{
           padding: "16px",
-          backgroundColor: "#f5f5f5",
+          backgroundColor: "#fff",
           borderRadius: "8px",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          margin: "0 0 32px 0",
+          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+          marginBottom: "32px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <Typography
-          variant="h4"
-          sx={{
-            marginBottom: "16px",
-            fontWeight: "bold",
-            color: "#333",
-          }}
-        >
-          {courseData.name}
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
+        <Box>
           <Typography
-            variant="h5"
+            variant="h4"
             sx={{
+              marginBottom: "16px",
               fontWeight: "bold",
               color: "#333",
             }}
           >
-            Teacher:
+            {courseData.name}
           </Typography>
-          <Typography
-            variant="h5"
+          <Box
             sx={{
-              color: "#555",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
             }}
           >
-            {courseData?.teacher?.name?.firstName}{" "}
-            {courseData?.teacher?.name?.lastName}
-          </Typography>
+            <Avatar
+              alt={courseData?.teacher?.name?.firstName}
+              src="/static/images/avatar/1.jpg"
+            />
+            <Box>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  color: "#333",
+                }}
+              >
+                Teacher:
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: "#555",
+                }}
+              >
+                {courseData?.teacher?.name?.firstName}{" "}
+                {courseData?.teacher?.name?.lastName}
+              </Typography>
+            </Box>
+          </Box>
         </Box>
-      </Box>
+        {[userRoles.STUDENT].includes(role) && (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              setShowConfirmationModal(true);
+            }}
+            sx={{
+              height: "fit-content",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <ExitToAppIcon />
+            Leave Class
+          </Button>
+        )}
+      </Paper>
+      <ConfirmationModal
+        open={showConfirmationModal}
+        onConfirm={handleLeaveClass}
+        description="Are you sure you want to leave this class?"
+        submitText="Leave"
+        onClose={() => {
+          setShowConfirmationModal(false);
+        }}
+      />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -195,13 +258,17 @@ export default function CourseDetails() {
         <CreateNotice />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <CourseWork posts={courseData.post} teacher={courseData.teacher} refetch={getData}/>
+        <CourseWork
+          posts={courseData.post}
+          teacher={courseData.teacher}
+          refetch={getData}
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <Assignment />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <CourseStudent students={courseData.student}/>
+        <CourseStudent students={courseData.student} />
       </CustomTabPanel>
     </Box>
   );

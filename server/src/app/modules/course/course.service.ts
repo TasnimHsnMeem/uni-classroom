@@ -5,6 +5,8 @@ import Course from './course.model';
 import { Types } from 'mongoose';
 import User from '../user/user.model';
 import { USER_ROLE } from '../../../enums';
+import Assignment from '../assignment/assignment.model';
+import Submission from '../submission/submission.model';
 
 const createClass = async (user: ICourse): Promise<ICourse | null> => {
   const newClass = (await Course.create(user)).populate('teacher');
@@ -21,12 +23,12 @@ const updateClass = async (
     throw new ApiError(httpStatus.NOT_FOUND, 'Class not found !');
   }
 
-  const { name, } = payload;
+  const { name } = payload;
 
   const updatedClassData: Partial<ICourse> = { name };
   const result = await Course.findByIdAndUpdate(id, updatedClassData, {
     new: true,
-  })
+  });
   return result;
 };
 
@@ -50,7 +52,7 @@ const joinClass = async (
 
   const result = await Course.findByIdAndUpdate(id, updatedClassData, {
     new: true,
-  })
+  });
   return result;
 };
 
@@ -69,8 +71,7 @@ const getAllClasses = async (userId: string): Promise<ICourse[]> => {
     filteredClasses = await Course.find({
       student: { $in: [new Types.ObjectId(userId)] },
     }).populate('teacher');
-  }
-  else if (user.role === USER_ROLE.ADMIN) {
+  } else if (user.role === USER_ROLE.ADMIN) {
     filteredClasses = await Course.find().populate('teacher');
   }
 
@@ -95,6 +96,52 @@ const deleteSingleClass = async (id: string): Promise<ICourse | null> => {
   }
 };
 
+const leaveClass = async (
+  id: string,
+  studentId: string
+): Promise<ICourse | null> => {
+  // Check if the class exists
+  const isExist = await Course.findById(id);
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Class not found!');
+  }
+
+  // Check if the user exists and is a student
+  const user = await User.findById(studentId);
+  if (!user || user.role !== USER_ROLE.STUDENT) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found!');
+  }
+
+  // Remove student's submissions related to the class assignments
+  const assignments = await Assignment.find({
+    _id: { $in: isExist.assignments },
+  });
+  const submissions = await Submission.find({
+    student: studentId,
+    assignment: { $in: assignments.map(a => a._id) },
+  });
+
+  // Delete submissions
+  await Submission.deleteMany({ _id: { $in: submissions.map(s => s._id) } });
+
+  // Remove submissions from assignments
+  await Assignment.updateMany(
+    { _id: { $in: assignments.map(a => a._id) } },
+    { $pull: { submissions: { $in: submissions.map(s => s._id) } } }
+  );
+
+  // Remove the student from the class
+  const updatedClassData: any = {
+    $pull: { student: studentId },
+  };
+
+  const result = await Course.findByIdAndUpdate(id, updatedClassData, {
+    new: true,
+  });
+
+  return result;
+};
+
 export const CourseService = {
   createClass,
   joinClass,
@@ -102,4 +149,5 @@ export const CourseService = {
   getAllClasses,
   getSingleClass,
   deleteSingleClass,
+  leaveClass,
 };
