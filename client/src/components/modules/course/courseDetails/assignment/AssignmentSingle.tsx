@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import assignmentService from "../../../../../services/assignment";
 import { IAssignment } from "../CourseDetails";
-import { Box, Typography, CircularProgress } from "@mui/material";
+import { Box, Typography, CircularProgress, IconButton } from "@mui/material";
 import AddSubmissions from "./Submissions/AddSubmissions";
 import SubmissionsList from "./Submissions/SubmissionsList";
 import { useAppSelector } from "../../../../../redux/store";
 import { userRoles } from "../../../../../constants/user";
 import assignmentSubmissionsService from "../../../../../services/assignmentSubmissions";
 import Button from "../../../../common/Button";
+import ConfirmationModal from "../../../../common/modal/confirmationModal/ConfirmationModal";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type Props = {
   assignmentId: string;
@@ -18,11 +20,12 @@ const AssignmentSingle = (props: Props) => {
   const { assignmentId } = props;
   const { id: courseId } = useParams<{ id: string }>();
   const { _id, role } = useAppSelector((state) => state.auth.profileData.user);
-
+  const [showConfirmationModal, setShowConfirmationModal] = React.useState(false);
   const [assignment, setAssignment] = React.useState<any>();
   const [checkIfAlreadySubmitted, setCheckIfAlreadySubmitted] =
     React.useState<boolean>(false);
   const [evaluatedResult, setEvaluatedResult] = React.useState<any>(false);
+  
   const getData = async () => {
     try {
       const result = await assignmentService.getById(assignmentId!);
@@ -48,8 +51,8 @@ const AssignmentSingle = (props: Props) => {
     } catch (error) {
       console.log(error);
     }
-  }
-  
+  };
+
   useEffect(() => {
     getData();
   }, [assignmentId]);
@@ -61,7 +64,7 @@ const AssignmentSingle = (props: Props) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: 1,
+        padding: 2,
         backgroundColor: "#f5f5f5",
       }}
     >
@@ -70,36 +73,56 @@ const AssignmentSingle = (props: Props) => {
           sx={{
             width: "100%",
             maxWidth: 600,
-            padding: 2,
+            padding: 3,
             backgroundColor: "white",
             borderRadius: 2,
             boxShadow: 3,
+            position: "relative",
           }}
         >
-          <Typography variant="h4" component="h1" gutterBottom>
-            {assignment.title}
-          </Typography>
-          <Typography variant="body1" component="p">
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h4" component="h1">
+              {assignment.title}
+            </Typography>
+            {role === userRoles.TEACHER && (
+              <IconButton
+                color="error"
+                onClick={() => setShowConfirmationModal(true)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            )}
+          </Box>
+          <Typography variant="body1" component="p" sx={{ marginY: 2 }}>
             {assignment.content}
           </Typography>
           {checkIfAlreadySubmitted ? (
             evaluatedResult.marks ? (
               <SubmissionsList submissions={[evaluatedResult.id]} />
             ) : (
-              <p>Already Submitted, pending for evaluation</p>
+              <Typography variant="body1" color="textSecondary">
+                Already Submitted, pending for evaluation
+              </Typography>
             )
           ) : role === userRoles.STUDENT ? (
             <AddSubmissions assignmentId={assignmentId} refetch={getData} />
           ) : null}
-
           {role === userRoles.TEACHER && (
-            <>
-              <Button variant="contained" color="error" onClick={handleDelete}>
-                Delete Assignment
-              </Button>
-              <SubmissionsList submissions={assignment.submissions} />
-            </>
+            <SubmissionsList submissions={assignment.submissions} />
           )}
+          <ConfirmationModal
+            open={showConfirmationModal}
+            onConfirm={handleDelete}
+            submitText="Delete"
+            description="Are you sure you want to delete this assignment?"
+            onClose={() => setShowConfirmationModal(false)}
+          />
         </Box>
       ) : (
         <CircularProgress />
