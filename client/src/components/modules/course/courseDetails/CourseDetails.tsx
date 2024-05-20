@@ -186,7 +186,7 @@ export default function CourseDetails() {
           aria-label="basic tabs example"
         >
           <Tab label="Notice" {...a11yProps(0)} />
-          <Tab label="Stream" {...a11yProps(1)} />
+          <Tab label="Classwork" {...a11yProps(1)} />
           <Tab label="Assignment" {...a11yProps(2)} />
           <Tab label="Enrolled Students" {...a11yProps(3)} />
         </Tabs>

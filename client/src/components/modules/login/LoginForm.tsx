@@ -46,7 +46,7 @@ const LoginForm: FC = () => {
                   className={`font-size-8 text-danger font-weight-small`}
                   style={{ margin: "0" }}
                 >
-                  (Classroom Management System)
+                  (Web Mentor System)
                 </Typography>
               </div>
             </Grid>

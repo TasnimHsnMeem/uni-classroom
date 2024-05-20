@@ -50,15 +50,20 @@ const getSingleAssignment = async (id: string): Promise<IAssignment | null> => {
 };
 
 const deleteSingleAssignment = async (
-  id: string
+  id: string,
+  courseId: string
 ): Promise<IAssignment | null> => {
   const _Assignment = await Assignment.findByIdAndDelete(id);
   if (_Assignment) {
+    await Course.findByIdAndUpdate(courseId, {
+      $pull: { assignments: id },
+    });
     return _Assignment;
   } else {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Assignment not found !');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Assignment not found!');
   }
 };
+
 
 export const AssignmentService = {
   createAssignment,

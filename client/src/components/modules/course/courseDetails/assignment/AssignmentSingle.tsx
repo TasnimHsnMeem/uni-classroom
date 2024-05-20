@@ -8,6 +8,7 @@ import SubmissionsList from "./Submissions/SubmissionsList";
 import { useAppSelector } from "../../../../../redux/store";
 import { userRoles } from "../../../../../constants/user";
 import assignmentSubmissionsService from "../../../../../services/assignmentSubmissions";
+import Button from "../../../../common/Button";
 
 type Props = {
   assignmentId: string;
@@ -15,6 +16,7 @@ type Props = {
 
 const AssignmentSingle = (props: Props) => {
   const { assignmentId } = props;
+  const { id: courseId } = useParams<{ id: string }>();
   const { _id, role } = useAppSelector((state) => state.auth.profileData.user);
 
   const [assignment, setAssignment] = React.useState<any>();
@@ -38,8 +40,17 @@ const AssignmentSingle = (props: Props) => {
       console.log(error);
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      await assignmentService.delete(assignmentId, courseId!);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   useEffect(() => {
-    
     getData();
   }, [assignmentId]);
 
@@ -78,11 +89,16 @@ const AssignmentSingle = (props: Props) => {
               <p>Already Submitted, pending for evaluation</p>
             )
           ) : role === userRoles.STUDENT ? (
-            <AddSubmissions assignmentId={assignmentId} refetch={getData}/>
+            <AddSubmissions assignmentId={assignmentId} refetch={getData} />
           ) : null}
 
           {role === userRoles.TEACHER && (
-            <SubmissionsList submissions={assignment.submissions} />
+            <>
+              <Button variant="contained" color="error" onClick={handleDelete}>
+                Delete Assignment
+              </Button>
+              <SubmissionsList submissions={assignment.submissions} />
+            </>
           )}
         </Box>
       ) : (

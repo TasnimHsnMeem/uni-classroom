@@ -8,6 +8,9 @@ router
   .get('/', AssignmentController.getAllAssignments)
   .post('/', AssignmentController.createAssignment);
 
-router.get('/:id', AssignmentController.getSingleAssignment);
+router
+  .get('/:id', AssignmentController.getSingleAssignment)
+  .delete('/:id', AssignmentController.deleteSingleAssignment)
+  .put('/:id', AssignmentController.updateAssignment);
 
 export const AssignmentRoutes = router;

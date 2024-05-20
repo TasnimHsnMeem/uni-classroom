@@ -53,7 +53,7 @@ const allMenus = {
   chat: {
     nav: {
       icon: Groups2,
-      label: "Chat",
+      label: "Chatbot",
       route: RoutingList.chat.index,
     },
   },
@@ -64,9 +64,9 @@ const allMenus = {
       route: RoutingList.adminNotice.index,
     },
     create: {
-      icon: FmdGood,
+      icon: HealthAndSafety,
       label: "Admin Notice",
-      route: RoutingList.adminNotice.create,
+      route: RoutingList.adminNotice.index,
     }
   },
 };

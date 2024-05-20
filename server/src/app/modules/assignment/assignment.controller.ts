@@ -62,7 +62,8 @@ const getSingleAssignment: RequestHandler = catchAsync(
 const deleteSingleAssignment: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
-    const result = await AssignmentService.deleteSingleAssignment(id);
+    const { courseId } = req.query;
+    const result = await AssignmentService.deleteSingleAssignment(id, courseId as string);
     sendResponse<IAssignment>(res, {
       statusCode: httpStatus.OK,
       success: true,
