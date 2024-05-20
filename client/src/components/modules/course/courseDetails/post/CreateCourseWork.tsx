@@ -1,30 +1,26 @@
 import { Box, Grid } from "@mui/material";
 import { Form, Formik, FormikState, FormikValues } from "formik";
-import { FC, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { FC, useRef, useState } from "react";
 
-import { useAppDispatch } from "../../../../../redux/store";
-import { setLoadingAction } from "../../../../../redux/utils/actions";
 import postService from "../../../../../services/post";
-import RoutingList from "../../../../../utils/RoutingList";
 import Button from "../../../../common/Button";
 import UserCourseTitleAndInput from "../../addCourse/UserCourseTitileAndInput";
 
 import styles from "../../../styles/styles.module.scss";
 import { courseWorkValidationSchema } from "../../utils";
 
-interface Props{
+interface Props {
   saveCourseWorkHandler: (values: FormikValues) => Promise<void>;
 }
 
-const CreateCourseWork : FC<Props>= (props) => {
+const CreateCourseWork: FC<Props> = (props) => {
   const { saveCourseWorkHandler } = props;
   const [initData] = useState({
     title: "",
     content: "",
     files: [],
-  });  
+  });
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -42,16 +38,22 @@ const CreateCourseWork : FC<Props>= (props) => {
               setFieldError,
               setErrors,
               setTouched,
-              resetForm
+              resetForm,
             }
           ) => {
-            resetForm({
-              title: "",
-              content: "",
-              files: [],
-            } as Partial<FormikState<{ title: string; content: string; files: never[]; }>>);
-            saveCourseWorkHandler(values);
-            setSubmitting(false);
+            saveCourseWorkHandler(values).then(() => {
+              resetForm({
+                title: "",
+                content: "",
+                files: [],
+              } as Partial<
+                FormikState<{ title: string; content: string; files: never[] }>
+              >);
+              if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+              }
+              setSubmitting(false);
+            });
           }}
         >
           {({
@@ -80,6 +82,7 @@ const CreateCourseWork : FC<Props>= (props) => {
                     type="file"
                     name="files"
                     multiple
+                    ref={fileInputRef}
                     onChange={async (event) => {
                       if (event.target.files) {
                         const files = Array.from(event.target.files);
