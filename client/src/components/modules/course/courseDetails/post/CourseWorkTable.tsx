@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IPost } from "../CourseDetails";
 import postService from "../../../../../services/post";
-import { Box, Button, Paper, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Button, Paper, Typography, Grid } from "@mui/material";
 import config from "../../../../../config";
 
 type Props = {
@@ -12,11 +11,11 @@ type Props = {
 const CourseWorkTable = (props: Props) => {
   const { posts } = props;
   return (
-    <div>
+    <Box>
       {posts.map((post, index) => (
         <IndividualCourseWork key={post} courseId={post} />
       ))}
-    </div>
+    </Box>
   );
 };
 
@@ -32,31 +31,37 @@ const IndividualCourseWork = ({ courseId }: { courseId: string }) => {
       }
     };
     getData();
-  }, []);
+  }, [courseId]);
+
   return (
-    <Box component={Paper} elevation={3} p={3} m={2}>
-      <Typography variant="h4" gutterBottom>
+    <Box component={Paper} elevation={3} p={3} m={2} sx={{ borderRadius: 2 }}>
+      <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold' }}>
         {course?.title}
       </Typography>
       <Typography variant="body1" paragraph>
         {course?.content}
       </Typography>
-      {course?.files && course?.files?.length > 0 && (
+      {course?.files && course?.files.length > 0 && (
         <Box>
-          Files:
-          {course?.files.map((file, index) => (
-            <Button
-              variant="contained"
-              color="primary"
-              href={`${config.assetUrl}${file}`}
-              key={file}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{ mt: 1, mr: 1 }}
-            >
-              File {index + 1}
-            </Button>
-          ))}
+          <Typography variant="subtitle1" gutterBottom>
+            Files:
+          </Typography>
+          <Grid container spacing={1}>
+            {course.files.map((file, index) => (
+              <Grid item key={file}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href={`${config.assetUrl}${file}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ mt: 1, mr: 1 }}
+                >
+                  File {index + 1}
+                </Button>
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       )}
     </Box>
