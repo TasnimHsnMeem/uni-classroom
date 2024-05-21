@@ -1,16 +1,27 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import assignmentService from "../../../../../services/assignment";
+import assignmentSubmissionsService from "../../../../../services/assignmentSubmissions";
 import { IAssignment } from "../CourseDetails";
-import { Box, Typography, CircularProgress, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  CircularProgress,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Button as MuiButton,
+  Divider,
+  Button,
+} from "@mui/material";
 import AddSubmissions from "./Submissions/AddSubmissions";
 import SubmissionsList from "./Submissions/SubmissionsList";
 import { useAppSelector } from "../../../../../redux/store";
 import { userRoles } from "../../../../../constants/user";
-import assignmentSubmissionsService from "../../../../../services/assignmentSubmissions";
-import Button from "../../../../common/Button";
 import ConfirmationModal from "../../../../common/modal/confirmationModal/ConfirmationModal";
 import DeleteIcon from "@mui/icons-material/Delete";
+import config from "../../../../../config";
 
 type Props = {
   assignmentId: string;
@@ -20,12 +31,13 @@ const AssignmentSingle = (props: Props) => {
   const { assignmentId } = props;
   const { id: courseId } = useParams<{ id: string }>();
   const { _id, role } = useAppSelector((state) => state.auth.profileData.user);
-  const [showConfirmationModal, setShowConfirmationModal] = React.useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] =
+    React.useState(false);
   const [assignment, setAssignment] = React.useState<any>();
   const [checkIfAlreadySubmitted, setCheckIfAlreadySubmitted] =
     React.useState<boolean>(false);
   const [evaluatedResult, setEvaluatedResult] = React.useState<any>(false);
-  
+
   const getData = async () => {
     try {
       const result = await assignmentService.getById(assignmentId!);
@@ -64,18 +76,18 @@ const AssignmentSingle = (props: Props) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: 2,
-        backgroundColor: "#f5f5f5",
+        padding: 4,
+        backgroundColor: "#f0f2f5",
       }}
     >
       {assignment ? (
         <Box
           sx={{
             width: "100%",
-            maxWidth: 600,
-            padding: 3,
+            maxWidth: 800,
+            padding: 4,
             backgroundColor: "white",
-            borderRadius: 2,
+            borderRadius: 4,
             boxShadow: 3,
             position: "relative",
           }}
@@ -85,9 +97,12 @@ const AssignmentSingle = (props: Props) => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              borderBottom: "1px solid #e0e0e0",
+              paddingBottom: 2,
+              marginBottom: 2,
             }}
           >
-            <Typography variant="h4" component="h1">
+            <Typography variant="h4" component="h1" sx={{ fontWeight: "bold" }}>
               {assignment.title}
             </Typography>
             {role === userRoles.TEACHER && (
@@ -99,9 +114,31 @@ const AssignmentSingle = (props: Props) => {
               </IconButton>
             )}
           </Box>
-          <Typography variant="body1" component="p" sx={{ marginY: 2 }}>
+          <Typography variant="body1" component="p" sx={{ marginBottom: 3 }}>
             {assignment.content}
           </Typography>
+          {assignment.files?.length > 0 && (
+            <Box sx={{ marginBottom: 3 }}>
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                Files:
+              </Typography>
+              <List>
+                {assignment.files.map((file: string, index: number) => (
+                  <ListItem key={index} disableGutters>
+                    <MuiButton
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      onClick={() => window.open(`${config.assetUrl}${file}`, '_blank')}
+                    >
+                      {file}
+                    </MuiButton>
+                  </ListItem>
+                ))}
+              </List>
+              <Divider sx={{ marginY: 2 }} />
+            </Box>
+          )}
           {checkIfAlreadySubmitted ? (
             evaluatedResult.marks ? (
               <SubmissionsList submissions={[evaluatedResult.id]} />

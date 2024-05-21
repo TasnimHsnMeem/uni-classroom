@@ -4,6 +4,7 @@ import { Model, Types } from 'mongoose';
 export type IAssignment = {
   title: string;
   content: string;
+  files: string[];
   submissions: string[];
 };
 

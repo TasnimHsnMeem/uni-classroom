@@ -17,6 +17,10 @@ const assignmentSchema = new Schema<IAssignment>(
       default: [],
       ref: 'Submission',
     },
+    files: {
+      type: [String],
+      default: [],
+    }
   },
   {
     timestamps: true,

@@ -71,6 +71,7 @@ export interface ICourse {
 export interface IAssignment {
   title: string;
   content: string;
+  files: string[];
   submissions: ISubmission[];
 }
 
