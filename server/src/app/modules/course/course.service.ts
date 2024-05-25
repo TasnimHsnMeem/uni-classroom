@@ -23,9 +23,13 @@ const updateClass = async (
     throw new ApiError(httpStatus.NOT_FOUND, 'Class not found !');
   }
 
-  const { name } = payload;
+  const { name, notice } = payload;
 
-  const updatedClassData: Partial<ICourse> = { name };
+  const updatedClassData: Partial<ICourse> = {
+    ...(name !== '' && { name }),
+    ...(notice !== '' && { notice }),
+  };
+  
   const result = await Course.findByIdAndUpdate(id, updatedClassData, {
     new: true,
   });

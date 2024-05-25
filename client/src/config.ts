@@ -59,6 +59,7 @@ const config = {
       index: "/post",
       getById: (id: string) => `/post/${id}`,
       upload: `/post/upload`,
+      delete: (postId: string, courseId: string) => `/post/${postId}?courseId=${courseId}`,
     },
     assignment: {
       index: "/assignment",

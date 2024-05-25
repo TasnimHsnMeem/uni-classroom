@@ -41,8 +41,8 @@ const update = async (
   return http.put(url, body);
 };
 
-const deleteCourse = async (id: string) => {
-  const url = `${config.baseUrl}${config.endPoints.user.delete(id)}`;
+const deleteCourse = async (postId: string, courseId: string) => {
+  const url = `${config.baseUrl}${config.endPoints.post.delete(postId, courseId)}`;
   return http.delete(url);
 };
 

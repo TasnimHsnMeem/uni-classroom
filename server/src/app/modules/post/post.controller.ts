@@ -61,8 +61,9 @@ const getSinglePost: RequestHandler = catchAsync(
 
 const deleteSinglePost: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const result = await PostService.deleteSinglePost(id);
+    const postId = req.params.id;
+    const courseId = req.query.courseId as string;
+    const result = await PostService.deleteSinglePost(courseId, postId);
     sendResponse<IPost>(res, {
       statusCode: httpStatus.OK,
       success: true,

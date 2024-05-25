@@ -43,7 +43,7 @@ const CourseWork = (props: Props) => {
       {user._id === teacher.id && (
         <CreateCourseWork saveCourseWorkHandler={saveCourseWorkHandler} />
       )}
-      <CourseWorkTable posts={posts} />
+      <CourseWorkTable posts={posts} refetch={refetch}/>
     </>
   );
 };

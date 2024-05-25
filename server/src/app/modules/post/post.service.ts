@@ -43,13 +43,27 @@ const getSinglePost = async (id: string): Promise<IPost | null> => {
   }
 };
 
-const deleteSinglePost = async (id: string): Promise<IPost | null> => {
-  const _Post = await Post.findByIdAndDelete(id);
-  if (_Post) {
-    return _Post;
-  } else {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Post not found !');
+// const deleteSinglePost = async (id: string): Promise<IPost | null> => {
+//   const _Post = await Post.findByIdAndDelete(id);
+//   if (_Post) {
+//     return _Post;
+//   } else {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found !');
+//   }
+// };
+
+const deleteSinglePost = async (courseId: string, postId: string): Promise<IPost | null> => {
+  // Delete the post from the database
+  const deletedPost = await Post.findByIdAndDelete(postId);
+  
+  if (!deletedPost) {
+    return null;
   }
+
+  // Remove the post reference from the course
+  await Course.findByIdAndUpdate(courseId, { $pull: { post: postId } });
+
+  return deletedPost;
 };
 
 
